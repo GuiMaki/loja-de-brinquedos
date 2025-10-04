@@ -1,11 +1,13 @@
+"use client";
+
 import Header from "@/components/Global/Header";
 
-const Home = () => {
+const TestButton = () => {
   return (
-    <div className="flex-1 ">
+    <div>
       <Header />
     </div>
   );
 };
 
-export default Home;
+export default TestButton;
