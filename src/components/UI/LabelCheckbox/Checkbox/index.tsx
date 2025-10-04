@@ -9,10 +9,9 @@ type CheckboxProps = {
 const Checkbox = ({ selected }: CheckboxProps) => {
   return (
     <div
-      className="inline-flex h-5 w-5 items-center justify-center rounded-[4px] border"
+      className="border-primary-100 inline-flex h-5 w-5 items-center justify-center rounded-[4px] border"
       style={{
         backgroundColor: selected ? colors.primary[100] : 'transparent',
-        borderColor: colors.primary[100],
       }}
     >
       {selected && (

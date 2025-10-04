@@ -14,7 +14,9 @@ const LabelCheckbox = ({ selected, onPress, label }: LabelCheckboxProps) => {
     >
       <Checkbox selected={selected} />
 
-      <span className="select-none text-sm">{label}</span>
+      <span className="select-none font-roboto text-sm font-light">
+        {label}
+      </span>
     </div>
   );
 };
