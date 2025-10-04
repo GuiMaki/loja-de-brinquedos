@@ -32,7 +32,7 @@ const HeaderOption = ({ label, onPress, selected }: HeaderItemProps) => {
 
   return (
     <div
-      className="px-6 py-4 rounded-full transition-colors items-center justify-center"
+      className="px-6 py-4 rounded-full transition-colors items-center justify-center cursor-pointer"
       onClick={onPress}
       style={{
         backgroundColor: bgColor(),
@@ -41,7 +41,7 @@ const HeaderOption = ({ label, onPress, selected }: HeaderItemProps) => {
       onMouseLeave={() => setHover(false)}
     >
       <span
-        className="text-xl cursor-default select-none"
+        className="text-xl select-none"
         style={{
           color: textColor(),
         }}
