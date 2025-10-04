@@ -1,5 +1,6 @@
-import colors from "@/global/colors";
-import { useState } from "react";
+import { useState } from 'react';
+
+import colors from '@/global/colors';
 
 type HeaderItemProps = {
   label: string;
@@ -15,7 +16,7 @@ const HeaderOption = ({ label, onPress, selected }: HeaderItemProps) => {
       return colors.primary[20];
     }
 
-    return "transparent";
+    return 'transparent';
   };
 
   const textColor = () => {
@@ -32,16 +33,16 @@ const HeaderOption = ({ label, onPress, selected }: HeaderItemProps) => {
 
   return (
     <div
-      className="px-6 py-4 rounded-full transition-colors items-center justify-center cursor-pointer"
-      onClick={onPress}
+      className="cursor-pointer items-center justify-center rounded-full px-6 py-4 transition-colors"
       style={{
         backgroundColor: bgColor(),
       }}
+      onClick={onPress}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <span
-        className="text-xl select-none"
+        className="select-none font-lexend text-xl font-semibold"
         style={{
           color: textColor(),
         }}

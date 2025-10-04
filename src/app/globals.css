@@ -1,1 +1,79 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+:root {
+  /* Primary */
+  --color-primary-100: #d8a5ff;
+  --color-primary-80: #e0b7ff;
+  --color-primary-60: #e8c9ff;
+  --color-primary-40: #efdbff;
+  --color-primary-20: #f7edff;
+
+  /* Secondary */
+  --color-secondary-100: #351b89;
+  --color-secondary-80: #5d49a1;
+  --color-secondary-60: #8676b8;
+  --color-secondary-40: #aea4d0;
+  --color-secondary-20: #d7d1e7;
+
+  /* Neutral */
+  --color-neutral-100: #2d2d2d;
+  --color-neutral-80: #454545;
+  --color-neutral-60: #737373;
+  --color-neutral-40: #a2a2a2;
+  --color-neutral-20: #d1d0d0;
+  --color-neutral-background: #f1f1f1;
+  --color-neutral-placeholder: #e5e5e5;
+  --color-neutral-black: #000000;
+  --color-neutral-white: #ffffff;
+
+  /* Alert */
+  --color-alert-success-primary: #2dac3e;
+  --color-alert-success-secondary: #abdeb1;
+  --color-alert-error-primary: #de3737;
+  --color-alert-error-secondary: #ffd2d2;
+  --color-alert-warning-primary: #e1cf36;
+  --color-alert-warning-secondary: #fffacb;
+}
+
+@theme inline {
+  /* Primary */
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-80: var(--color-primary-80);
+  --color-primary-60: var(--color-primary-60);
+  --color-primary-40: var(--color-primary-40);
+  --color-primary-20: var(--color-primary-20);
+
+  /* Secondary */
+  --color-secondary-100: var(--color-secondary-100);
+  --color-secondary-80: var(--color-secondary-80);
+  --color-secondary-60: var(--color-secondary-60);
+  --color-secondary-40: var(--color-secondary-40);
+  --color-secondary-20: var(--color-secondary-20);
+
+  /* Neutral */
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-80: var(--color-neutral-80);
+  --color-neutral-60: var(--color-neutral-60);
+  --color-neutral-40: var(--color-neutral-40);
+  --color-neutral-20: var(--color-neutral-20);
+  --color-neutral-background: var(--color-neutral-background);
+  --color-neutral-placeholder: var(--color-neutral-placeholder);
+
+  /* Alerts */
+  --color-alert-success-primary: var(--color-alert-success-primary);
+  --color-alert-success-secondary: var(--color-alert-success-secondary);
+  --color-alert-error-primary: var(--color-alert-error-primary);
+  --color-alert-error-secondary: var(--color-alert-error-secondary);
+  --color-alert-warning-primary: var(--color-alert-warning-primary);
+  --color-alert-warning-secondary: var(--color-alert-warning-secondary);
+
+  /* Fonts */
+  --font-lexend: var(--font-lexend);
+  --font-roboto: var(--font-roboto);
+}
+
+body {
+  background: var(--color-neutral-background);
+  color: var(--color-neutral-80);
+  font-family: var(--font-roboto);
+}

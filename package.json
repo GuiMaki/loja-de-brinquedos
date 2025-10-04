@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier . --write",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "15.5.4",
@@ -16,14 +18,43 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.37.0",
+    "@next/eslint-plugin-next": "^15.5.4",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.1.14",
+    "@tanstack/eslint-plugin-query": "^5.91.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prefer-arrow-functions": "^3.9.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "jiti": "^2.6.1",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.14",
-    "typescript": "^5"
+    "ts-plugin-sort-import-suggestions": "^1.0.4",
+    "typescript": "^5",
+    "typescript-eslint": "^8.45.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
+    "tailwindStylesheet": "./tailwind.config.js",
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ],
+    "tailwindAttributes": [
+      "className",
+      "contentContainerClassName"
+    ]
   }
 }

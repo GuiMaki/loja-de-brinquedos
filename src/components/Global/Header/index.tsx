@@ -1,52 +1,55 @@
-"use client";
+'use client';
 
-import { HorizontalLogoImg } from "@/assets";
-import Image from "next/image";
-import HeaderOption from "./HeaderOption";
-import { useState } from "react";
-import colors from "@/global/colors";
+import Image from 'next/image';
+import { useState } from 'react';
+
+import { HorizontalLogoImg } from '@/assets';
+
+import HeaderOption from './HeaderOption';
 
 const Header = () => {
-  const [selectedOption, setSelectedOption] = useState("Home");
+  const [selectedOption, setSelectedOption] = useState('Home');
 
   const changeOption = (option: string) => {
     if (option === selectedOption) {
-      return alert("Scroll" + option);
+      return alert(`Scroll${option}`);
     }
 
     return setSelectedOption(option);
   };
 
   return (
-    <div
-      className="w-full px-9 py-8 justify-between flex items-center"
-      style={{ backgroundColor: colors.primary[100] }}
-    >
+    <div className="bg-primary-100 flex w-full items-center justify-between px-9 py-8">
       <Image
-        src={HorizontalLogoImg}
         alt="HorizontalLogo"
-        style={{ width: "10%" }}
+        src={HorizontalLogoImg}
+        style={{ width: '10%', cursor: 'pointer' }}
+        onClick={() => changeOption('Home')}
       />
+
       <div className="flex gap-5">
         <HeaderOption
           label="Home"
-          onPress={() => changeOption("Home")}
-          selected={selectedOption === "Home"}
+          selected={selectedOption === 'Home'}
+          onPress={() => changeOption('Home')}
         />
+
         <HeaderOption
           label="Catálogo de Brinquedos"
-          onPress={() => changeOption("ToysList")}
-          selected={selectedOption === "ToysList"}
+          selected={selectedOption === 'ToysList'}
+          onPress={() => changeOption('ToysList')}
         />
+
         <HeaderOption
           label="Administração"
-          onPress={() => changeOption("Admin")}
-          selected={selectedOption === "Admin"}
+          selected={selectedOption === 'Admin'}
+          onPress={() => changeOption('Admin')}
         />
+
         <HeaderOption
           label="Sobre nós"
-          onPress={() => changeOption("AboutUs")}
-          selected={selectedOption === "AboutUs"}
+          selected={selectedOption === 'AboutUs'}
+          onPress={() => changeOption('AboutUs')}
         />
       </div>
     </div>

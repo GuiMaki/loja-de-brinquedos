@@ -1,5 +1,6 @@
-import colors from "@/global/colors";
-import Icon from "../../Icon";
+import colors from '@/global/colors';
+
+import Icon from '../../Icon';
 
 type CheckboxProps = {
   selected: boolean;
@@ -8,19 +9,19 @@ type CheckboxProps = {
 const Checkbox = ({ selected }: CheckboxProps) => {
   return (
     <div
-      className="inline-flex items-center justify-center rounded-[4px] border w-5 h-5"
+      className="inline-flex h-5 w-5 items-center justify-center rounded-[4px] border"
       style={{
-        backgroundColor: selected ? colors.primary[100] : "transparent",
+        backgroundColor: selected ? colors.primary[100] : 'transparent',
         borderColor: colors.primary[100],
       }}
     >
       {selected && (
         <Icon
+          color={colors.neutral.white}
+          fill={colors.neutral.white}
           name="CheckIcon"
           size={20}
-          color={colors.neutral.white}
           strokeWidth={1}
-          fill={colors.neutral.white}
         />
       )}
     </div>

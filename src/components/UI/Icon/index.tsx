@@ -1,6 +1,7 @@
-import React, { CSSProperties } from "react";
-import * as IconAssets from "@/assets/index"; // Import everything
-import colors from "@/global/colors";
+import React, { CSSProperties } from 'react';
+
+import * as IconAssets from '@/assets/index'; // Import everything
+import colors from '@/global/colors';
 
 // Filter only the icon types (exclude image types)
 type AllAssets = typeof IconAssets;
@@ -10,7 +11,7 @@ type IconKeys = {
 
 export type IconT = IconKeys;
 
-export interface IconProps {
+export type IconProps = {
   name: IconT;
   size?: number;
   color?: string;
@@ -18,7 +19,7 @@ export interface IconProps {
   rotate?: number;
   style?: CSSProperties;
   fill?: string;
-}
+};
 
 const Icon: React.FC<IconProps> = ({
   name,
@@ -27,25 +28,27 @@ const Icon: React.FC<IconProps> = ({
   strokeWidth = 2,
   rotate = 0,
   style,
-  fill = "none",
+  fill = 'none',
 }) => {
   const SvgComponent = IconAssets[name];
 
-  if (!SvgComponent) return null;
+  if (!SvgComponent) {
+    return null;
+  }
 
   return (
     <SvgComponent
-      width={size}
+      fill={fill}
       height={size}
       stroke={color}
       strokeWidth={strokeWidth}
-      fill={fill}
       style={{
         transform: `rotate(${rotate}deg)`,
-        display: "inline-block",
-        verticalAlign: "middle",
+        display: 'inline-block',
+        verticalAlign: 'middle',
         ...style,
       }}
+      width={size}
     />
   );
 };

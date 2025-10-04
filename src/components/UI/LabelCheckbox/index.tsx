@@ -1,4 +1,4 @@
-import Checkbox from "./Checkbox";
+import Checkbox from './Checkbox';
 
 type LabelCheckboxProps = {
   label: string;
@@ -9,8 +9,8 @@ type LabelCheckboxProps = {
 const LabelCheckbox = ({ selected, onPress, label }: LabelCheckboxProps) => {
   return (
     <div
+      className="flex w-fit cursor-pointer items-center gap-2"
       onClick={onPress}
-      className="items-center gap-2 cursor-pointer flex w-fit"
     >
       <Checkbox selected={selected} />
 
