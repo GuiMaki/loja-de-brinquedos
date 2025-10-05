@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { Brands } from '@/assetstemp/Data/Brands';
+import { Brands } from '@/assets/Data/Brands';
 import Icon from '@/components/UI/Icon';
 import LabelCheckbox from '@/components/UI/LabelCheckbox';
 
