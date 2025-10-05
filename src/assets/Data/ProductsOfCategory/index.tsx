@@ -4,7 +4,7 @@ export const ProductsOfCatregoryData = [
   {
     category: {
       id: '1',
-      name: 'Carrinhos',
+      name: 'Carrinhos e Veículos',
       products: [
         {
           id: '1',
@@ -22,40 +22,16 @@ export const ProductsOfCatregoryData = [
           rateAmmount: 210,
           price: 99.9,
         },
-        {
-          id: '3',
-          image: DefaultImg,
-          name: 'Carrinho de Bombeiro Infantil',
-          rating: 4.5,
-          rateAmmount: 85,
-          price: 89.9,
-        },
-        {
-          id: '4',
-          image: DefaultImg,
-          name: 'Mini Caminhão Basculante',
-          rating: 4.2,
-          rateAmmount: 45,
-          price: 64.9,
-        },
-        {
-          id: '5',
-          image: DefaultImg,
-          name: 'Carrinho de Corrida Turbo X',
-          rating: 4.9,
-          rateAmmount: 310,
-          price: 119.9,
-        },
       ],
     },
   },
   {
     category: {
       id: '2',
-      name: 'Bonecas',
+      name: 'Bonecas e Bonecos',
       products: [
         {
-          id: '1',
+          id: '3',
           image: DefaultImg,
           name: 'Boneca Fashion com Acessórios',
           rating: 4.8,
@@ -63,20 +39,12 @@ export const ProductsOfCatregoryData = [
           price: 149.9,
         },
         {
-          id: '2',
+          id: '4',
           image: DefaultImg,
           name: 'Boneca Bebê Realista',
           rating: 4.9,
           rateAmmount: 245,
           price: 179.9,
-        },
-        {
-          id: '3',
-          image: DefaultImg,
-          name: 'Boneca Princesa do Gelo',
-          rating: 4.5,
-          rateAmmount: 98,
-          price: 139.9,
         },
       ],
     },
@@ -84,10 +52,10 @@ export const ProductsOfCatregoryData = [
   {
     category: {
       id: '3',
-      name: 'Blocos',
+      name: 'Brinquedos Educativos',
       products: [
         {
-          id: '1',
+          id: '5',
           image: DefaultImg,
           name: 'Blocos de Montar Castelo Medieval',
           rating: 4.7,
@@ -95,28 +63,12 @@ export const ProductsOfCatregoryData = [
           price: 199.9,
         },
         {
-          id: '2',
+          id: '6',
           image: DefaultImg,
           name: 'Blocos Criativos 500 Peças',
           rating: 4.9,
           rateAmmount: 340,
           price: 249.9,
-        },
-        {
-          id: '3',
-          image: DefaultImg,
-          name: 'Blocos Educativos com Formas Geométricas',
-          rating: 4.3,
-          rateAmmount: 65,
-          price: 89.9,
-        },
-        {
-          id: '4',
-          image: DefaultImg,
-          name: 'Blocos Dino Park',
-          rating: 4.6,
-          rateAmmount: 130,
-          price: 159.9,
         },
       ],
     },
@@ -124,10 +76,10 @@ export const ProductsOfCatregoryData = [
   {
     category: {
       id: '4',
-      name: 'Pelúcias',
+      name: 'Pelúcias e Interativos',
       products: [
         {
-          id: '1',
+          id: '7',
           image: DefaultImg,
           name: 'Ursinho de Pelúcia Clássico',
           rating: 4.8,
@@ -135,7 +87,7 @@ export const ProductsOfCatregoryData = [
           price: 89.9,
         },
         {
-          id: '2',
+          id: '8',
           image: DefaultImg,
           name: 'Pelúcia Pikachu 30cm',
           rating: 4.9,
@@ -148,10 +100,10 @@ export const ProductsOfCatregoryData = [
   {
     category: {
       id: '5',
-      name: 'Jogos',
+      name: 'Brinquedos de Montar',
       products: [
         {
-          id: '1',
+          id: '9',
           image: DefaultImg,
           name: 'Jogo de Tabuleiro Detetive Kids',
           rating: 4.7,
@@ -159,36 +111,12 @@ export const ProductsOfCatregoryData = [
           price: 149.9,
         },
         {
-          id: '2',
+          id: '10',
           image: DefaultImg,
           name: 'Jogo da Memória Animais',
           rating: 4.3,
           rateAmmount: 60,
           price: 49.9,
-        },
-        {
-          id: '3',
-          image: DefaultImg,
-          name: 'Jogo Uno Clássico',
-          rating: 4.9,
-          rateAmmount: 950,
-          price: 34.9,
-        },
-        {
-          id: '4',
-          image: DefaultImg,
-          name: 'Jogo Twister Infantil',
-          rating: 4.6,
-          rateAmmount: 400,
-          price: 99.9,
-        },
-        {
-          id: '5',
-          image: DefaultImg,
-          name: 'Jogo Cara a Cara',
-          rating: 4.8,
-          rateAmmount: 370,
-          price: 109.9,
         },
       ],
     },
@@ -199,7 +127,7 @@ export const ProductsOfCatregoryData = [
       name: 'Instrumentos',
       products: [
         {
-          id: '1',
+          id: '11',
           image: DefaultImg,
           name: 'Violão Infantil Colorido',
           rating: 4.5,
@@ -207,20 +135,12 @@ export const ProductsOfCatregoryData = [
           price: 189.9,
         },
         {
-          id: '2',
+          id: '12',
           image: DefaultImg,
           name: 'Bateria Infantil 5 Peças',
           rating: 4.7,
           rateAmmount: 250,
           price: 299.9,
-        },
-        {
-          id: '3',
-          image: DefaultImg,
-          name: 'Teclado Musical Infantil',
-          rating: 4.4,
-          rateAmmount: 80,
-          price: 159.9,
         },
       ],
     },
@@ -231,7 +151,7 @@ export const ProductsOfCatregoryData = [
       name: 'Educação',
       products: [
         {
-          id: '1',
+          id: '13',
           image: DefaultImg,
           name: 'Alfabeto Magnético Infantil',
           rating: 4.6,
@@ -239,7 +159,7 @@ export const ProductsOfCatregoryData = [
           price: 59.9,
         },
         {
-          id: '2',
+          id: '14',
           image: DefaultImg,
           name: 'Globo Terrestre Infantil',
           rating: 4.8,
@@ -247,20 +167,12 @@ export const ProductsOfCatregoryData = [
           price: 129.9,
         },
         {
-          id: '3',
+          id: '6',
           image: DefaultImg,
-          name: 'Relógio Aprendiz de Horas',
-          rating: 4.3,
-          rateAmmount: 55,
-          price: 49.9,
-        },
-        {
-          id: '4',
-          image: DefaultImg,
-          name: 'Jogo de Matemática Divertida',
-          rating: 4.7,
-          rateAmmount: 90,
-          price: 79.9,
+          name: 'Blocos Criativos 500 Peças',
+          rating: 4.9,
+          rateAmmount: 340,
+          price: 249.9,
         },
       ],
     },
@@ -268,10 +180,10 @@ export const ProductsOfCatregoryData = [
   {
     category: {
       id: '8',
-      name: 'Ao Ar Livre',
+      name: 'Ar Livre e Esportes',
       products: [
         {
-          id: '1',
+          id: '15',
           image: DefaultImg,
           name: 'Pipa Colorida Grande',
           rating: 4.2,
@@ -279,36 +191,12 @@ export const ProductsOfCatregoryData = [
           price: 39.9,
         },
         {
-          id: '2',
+          id: '16',
           image: DefaultImg,
           name: 'Piscina Inflável Infantil 100L',
           rating: 4.9,
           rateAmmount: 500,
           price: 249.9,
-        },
-        {
-          id: '3',
-          image: DefaultImg,
-          name: 'Bicicleta Infantil Aro 16',
-          rating: 4.8,
-          rateAmmount: 310,
-          price: 599.9,
-        },
-        {
-          id: '4',
-          image: DefaultImg,
-          name: 'Patinete Dobrável',
-          rating: 4.6,
-          rateAmmount: 270,
-          price: 349.9,
-        },
-        {
-          id: '5',
-          image: DefaultImg,
-          name: 'Bola de Futebol Infantil',
-          rating: 4.5,
-          rateAmmount: 140,
-          price: 69.9,
         },
       ],
     },

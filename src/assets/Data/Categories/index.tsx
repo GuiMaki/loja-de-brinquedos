@@ -35,25 +35,23 @@ export const CategoriesData = [
   },
   {
     image: DefaultImg,
-    name: 'Brinquedos de Montar',
+    name: 'Jogos',
     description:
-      'Construa mundos inteiros com blocos e peças coloridas! Os brinquedos de montar estimulam a criatividade, a concentração e a resolução de problemas. Desde castelos e cidades até robôs e veículos, cada montagem é uma nova aventura cheia de descobertas.',
+      'Se divirta com sua família com jogos de tabuleiros interativos e divertidos.',
     productAmmount: 152,
     id: '5',
   },
   {
     image: DefaultImg,
-    name: 'Jogos de Tabuleiro',
-    description:
-      'Perfeitos para reunir a família e os amigos, os jogos de tabuleiro trazem diversão e aprendizado em grupo. São jogos de estratégia, sorte e cooperação que ajudam no desenvolvimento de habilidades sociais e cognitivas, tornando qualquer tarde muito mais animada.',
+    name: 'Instrumentos',
+    description: 'Só porque ta com o cabelo grande a achando que é roqueiro.',
     productAmmount: 97,
     id: '6',
   },
   {
     image: DefaultImg,
-    name: 'Brinquedos de Faz de Conta',
-    description:
-      'Com os brinquedos de faz de conta, a imaginação ganha vida! As crianças podem se transformar em chefs de cozinha, médicos, mecânicos ou o que quiserem. Kits com utensílios, ferramentas e acessórios permitem explorar diferentes papéis e aprender sobre o mundo ao redor de forma divertida.',
+    name: 'Educação',
+    description: 'Bota as criançada pra estudar.',
     productAmmount: 64,
     id: '7',
   },
