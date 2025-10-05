@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { DefaultImg } from '@/../public/Images';
-import { formatCurrency, formatNumber } from '@/utils/format';
+import { formatCurrency, formatRateNumber } from '@/utils/format';
 
 import RatingStarsCard from './RatingStarCard';
 
@@ -48,7 +48,7 @@ const ProductCard = ({
         <RatingStarsCard rating={rating} />
 
         <span className="text-neutral-40 font-roboto text-xs font-medium">
-          ({formatNumber(rateAmmount)})
+          ({formatRateNumber(rateAmmount)})
         </span>
       </div>
 

@@ -9,7 +9,7 @@ export const normalize = (value: string) => {
   return value.replace(/\D/g, '');
 };
 
-export const formatNumber = (num: number): string => {
+export const formatRateNumber = (num: number): string => {
   if (num < 1000) {
     return num.toString();
   } else if (num < 1_000_000) {
@@ -21,4 +21,11 @@ export const formatNumber = (num: number): string => {
     const formatted = (num / 1_000_000).toFixed(1);
     return `${formatted.replace('.', ',')} mi`;
   }
+};
+
+export const formatAmmountNumber = (num: number): string => {
+  if (num > 99) {
+    return '99+';
+  }
+  return num.toString();
 };

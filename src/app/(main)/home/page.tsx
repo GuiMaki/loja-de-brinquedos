@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { HighlightedProducts } from '@/assets/Data/HighlightedProducts';
+import { HighlightedProductsData } from '@/assets/Data/HighlightedProducts';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
 import BrandSelector from '@/components/Pages/(main)/Home/FilterBar/Brands';
@@ -69,7 +69,7 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-5 gap-12">
-            {HighlightedProducts.map(product => (
+            {HighlightedProductsData.map(product => (
               <ProductCard
                 key={product.id}
                 id={product.id}

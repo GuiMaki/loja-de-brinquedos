@@ -1,6 +1,6 @@
 import { DefaultImg } from '@/../public/Images';
 
-export const HighlightedProducts = [
+export const HighlightedProductsData = [
   {
     image: DefaultImg,
     name: 'Carrinho de Controle Remoto Turbo Racer',
