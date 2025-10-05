@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Lexend, Roboto } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 
-import Providers from '@/components/Pages/Providers';
+import Providers from '@/Components/Pages/Providers';
 import colors from '@/global/colors';
 import './globals.css';
 
