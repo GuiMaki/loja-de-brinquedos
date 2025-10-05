@@ -7,6 +7,7 @@ export const ProductsDetails = [
     categories: [{ id: '1', name: 'Carrinhos e Veículos' }],
     data: {
       name: 'Carrinho de Polícia com Luz e Som',
+      brand: 'brand1',
       rating: 4,
       rateAmmount: 120,
       price: 79.9,
@@ -24,6 +25,18 @@ export const ProductsDetails = [
 
           <h2 style="color: #2c3e50; margin-top: 25px; font-size: 24px;">Conteúdo da Caixa</h2>
           <ul style="list-style-type: circle; padding-left: 25px; font-size: 18px;">
+            <li>1 Pista de corrida</li>
+            <li>2 Carrinhos de polícia</li>
+            <li>Manual de instruções</li>
+            <li>1 Pista de corrida</li>
+            <li>2 Carrinhos de polícia</li>
+            <li>Manual de instruções</li>
+            <li>1 Pista de corrida</li>
+            <li>2 Carrinhos de polícia</li>
+            <li>Manual de instruções</li>
+            <li>1 Pista de corrida</li>
+            <li>2 Carrinhos de polícia</li>
+            <li>Manual de instruções</li>
             <li>1 Pista de corrida</li>
             <li>2 Carrinhos de polícia</li>
             <li>Manual de instruções</li>
@@ -139,6 +152,7 @@ export const ProductsDetails = [
     categories: [{ id: '1', name: 'Carrinhos e Veículos' }],
     data: {
       name: 'Hot Wheels Loop Radical',
+      brand: 'brand3',
       rating: 4,
       rateAmmount: 210,
       price: 99.9,
@@ -186,6 +200,7 @@ export const ProductsDetails = [
     categories: [{ id: '2', name: 'Bonecas e Bonecos' }],
     data: {
       name: 'Boneca Fashion com Acessórios',
+      brand: 'Will macaco',
       rating: 4,
       rateAmmount: 190,
       price: 149.9,
@@ -217,6 +232,7 @@ export const ProductsDetails = [
     categories: [{ id: '2', name: 'Bonecas e Bonecos' }],
     data: {
       name: 'Boneca Bebê Realista',
+      brand: 'DoniMacaco',
       rating: 4,
       rateAmmount: 245,
       price: 179.9,
@@ -248,6 +264,7 @@ export const ProductsDetails = [
     categories: [{ id: '3', name: 'Brinquedos Educativos' }],
     data: {
       name: 'Blocos de Montar Castelo Medieval',
+      brand: 'Vini macaco',
       rating: 4,
       rateAmmount: 220,
       price: 199.9,
@@ -298,6 +315,7 @@ export const ProductsDetails = [
     ],
     data: {
       name: 'Blocos Criativos 500 Peças',
+      brand: 'Kenzo Macaco',
       rating: 4,
       rateAmmount: 340,
       price: 249.9,
@@ -329,6 +347,7 @@ export const ProductsDetails = [
     categories: [{ id: '4', name: 'Pelúcias e Interativos' }],
     data: {
       name: 'Ursinho de Pelúcia Clássico',
+      brand: 'brand1',
       rating: 4,
       rateAmmount: 500,
       price: 89.9,
@@ -360,6 +379,7 @@ export const ProductsDetails = [
     categories: [{ id: '4', name: 'Pelúcias e Interativos' }],
     data: {
       name: 'Pelúcia Pikachu 30cm',
+      brand: 'brand1',
       rating: 4,
       rateAmmount: 800,
       price: 129.9,
@@ -390,6 +410,7 @@ export const ProductsDetails = [
     categories: [{ id: '5', name: 'Jogos' }],
     data: {
       name: 'Jogo de Tabuleiro Detetive Kids',
+      brand: 'brand2',
       rating: 4,
       rateAmmount: 180,
       price: 149.9,
@@ -421,6 +442,7 @@ export const ProductsDetails = [
     categories: [{ id: '5', name: 'Jogos' }],
     data: {
       name: 'Jogo da Memória Animais',
+      brand: 'branddasoldksaçd',
       rating: 4,
       rateAmmount: 60,
       price: 49.9,
@@ -452,6 +474,7 @@ export const ProductsDetails = [
     categories: [{ id: '6', name: 'Instrumentos' }],
     data: {
       name: 'Violão Infantil Colorido',
+      brand: 'branasdd1',
       rating: 4,
       rateAmmount: 120,
       price: 189.9,
@@ -483,6 +506,7 @@ export const ProductsDetails = [
     categories: [{ id: '6', name: 'Instrumentos' }],
     data: {
       name: 'Bateria Infantil 5 Peças',
+      brand: '2312131235fedscvsf',
       rating: 4,
       rateAmmount: 250,
       price: 299.9,
@@ -514,6 +538,7 @@ export const ProductsDetails = [
     categories: [{ id: '7', name: 'Educação' }],
     data: {
       name: 'Alfabeto Magnético Infantil',
+      brand: 'aaaaaaaaaaaaaaaa',
       rating: 4,
       rateAmmount: 160,
       price: 59.9,
@@ -553,6 +578,7 @@ export const ProductsDetails = [
     categories: [{ id: '7', name: 'Educação' }],
     data: {
       name: 'Globo Terrestre Infantil',
+      brand: 'brand1',
       rating: 4,
       rateAmmount: 210,
       price: 129.9,
@@ -592,6 +618,7 @@ export const ProductsDetails = [
     categories: [{ id: '8', name: 'Ar Livre e Esportes' }],
     data: {
       name: 'Pipa Colorida Grande',
+      brand: 'brand1',
       rating: 4,
       rateAmmount: 70,
       price: 39.9,
@@ -621,7 +648,8 @@ export const ProductsDetails = [
     id: '16',
     categories: [{ id: '8', name: 'Ar Livre e Esportes' }],
     data: {
-      name: 'Piscina Inflável Infantil 100L',
+      name: 'Piscina Inflável Infantil 100L aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      brand: 'brand1',
       rating: 4,
       rateAmmount: 500,
       price: 249.9,

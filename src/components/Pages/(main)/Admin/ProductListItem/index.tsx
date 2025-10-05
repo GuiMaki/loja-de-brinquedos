@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation';
+
 import Icon from '@/components/UI/Icon';
 import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
@@ -18,6 +20,7 @@ const ProductListItem = ({
   name,
   price,
 }: ProductListItemProps) => {
+  const router = useRouter();
   const { openModal, closeModal } = useDefaultModal();
 
   const joinedCategories = categories.join(', ');
@@ -66,7 +69,7 @@ const ProductListItem = ({
       <div className="flex flex-1 justify-center gap-3">
         <div
           className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2"
-          onClick={() => alert(`detail id: ${id}`)}
+          onClick={() => router.push(`/admin/productDetails/${id}`)}
         >
           <Icon fill={colors.neutral[60]} name="EyeIcon" size={24} />
         </div>
