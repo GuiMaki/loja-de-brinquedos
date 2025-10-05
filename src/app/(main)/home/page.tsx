@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
 import BrandSelector from '@/components/Pages/(main)/Home/FilterBar/Brands';
 import PriceRangeSelector from '@/components/Pages/(main)/Home/FilterBar/Price';
@@ -22,10 +23,10 @@ const Home = () => {
   };
 
   return (
-    <div className="flex-1">
+    <div className="flex min-h-screen flex-col">
       <Header page="Home" />
 
-      <div className="flex flex-col gap-8 px-6 py-8">
+      <div className="flex flex-1 flex-col gap-8 px-6 py-8">
         <div className="flex justify-between p-3">
           <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
             Brinquedos em destaque
@@ -66,6 +67,8 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
