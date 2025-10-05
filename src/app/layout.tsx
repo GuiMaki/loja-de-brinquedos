@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Lexend, Roboto } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 
+import Providers from '@/components/Pages/Providers';
 import colors from '@/global/colors';
-
 import './globals.css';
 
 const lexend = Lexend({
@@ -30,7 +30,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
         className={`${lexend.variable} ${roboto.variable} antialiased`}
         style={{ backgroundColor: colors.neutral.background }}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

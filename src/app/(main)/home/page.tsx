@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import Header from '@/components/Global/Header';
+import Header from '@/components/Pages/(main)/Home/Header';
 import LabelCheckbox from '@/components/UI/LabelCheckbox';
 
 const Home = () => {
