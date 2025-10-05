@@ -1,21 +1,21 @@
-'use client';
-
 import Image from 'next/image';
-import { useState } from 'react';
+import { redirect } from 'next/navigation';
 
 import { HorizontalLogoImg } from '@/../public/Images';
 
 import HeaderOption from './HeaderOption';
 
-const Header = () => {
-  const [selectedOption, setSelectedOption] = useState('Home');
+type HeaderProps = {
+  page: 'Home' | 'Categories' | 'Admin' | 'AboutUs';
+};
 
-  const changeOption = (option: string) => {
-    if (option === selectedOption) {
-      return alert(`Scroll${option}`);
+const Header = ({ page }: HeaderProps) => {
+  const handleClick = (targetPage: HeaderProps['page'], path: string) => {
+    if (page === targetPage) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      redirect(path);
     }
-
-    return setSelectedOption(option);
   };
 
   return (
@@ -24,32 +24,32 @@ const Header = () => {
         alt="HorizontalLogo"
         src={HorizontalLogoImg}
         style={{ width: '10%', cursor: 'pointer' }}
-        onClick={() => changeOption('Home')}
+        onClick={() => handleClick('Home', '/')}
       />
 
       <div className="flex gap-5">
         <HeaderOption
           label="Home"
-          selected={selectedOption === 'Home'}
-          onPress={() => changeOption('Home')}
+          selected={page === 'Home'}
+          onPress={() => handleClick('Home', '/')}
         />
 
         <HeaderOption
           label="Catálogo de Brinquedos"
-          selected={selectedOption === 'ToysList'}
-          onPress={() => changeOption('ToysList')}
+          selected={page === 'Categories'}
+          onPress={() => handleClick('Categories', '/categories')}
         />
 
         <HeaderOption
           label="Administração"
-          selected={selectedOption === 'Admin'}
-          onPress={() => changeOption('Admin')}
+          selected={page === 'Admin'}
+          onPress={() => handleClick('Admin', '/admin')}
         />
 
         <HeaderOption
           label="Sobre nós"
-          selected={selectedOption === 'AboutUs'}
-          onPress={() => changeOption('AboutUs')}
+          selected={page === 'AboutUs'}
+          onPress={() => handleClick('AboutUs', '/about-us')}
         />
       </div>
     </div>
