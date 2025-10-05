@@ -13,6 +13,8 @@ type ProductCardProps = {
   rateAmmount: number;
   price: number;
   id: string;
+  width?: number;
+  imgWidth?: number;
 };
 
 const ProductCard = ({
@@ -22,18 +24,21 @@ const ProductCard = ({
   rateAmmount,
   rating,
   id,
+  width,
+  imgWidth,
 }: ProductCardProps) => {
   const router = useRouter();
 
   return (
     <div
       className="flex h-fit cursor-pointer flex-col gap-3 rounded-xl bg-white p-5"
+      style={{ width: width && width }}
       onClick={() => router.push(`/categories/products/productsDetail/${id}`)}
     >
       <Image
         alt="ProductImage"
         src={image}
-        style={{ width: '100%', objectFit: 'contain' }}
+        style={{ width: imgWidth ? imgWidth : '100%', objectFit: 'contain' }}
       />
 
       <span className="text-secondary-100 truncate font-lexend text-xl font-semibold">

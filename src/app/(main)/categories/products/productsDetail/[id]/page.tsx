@@ -1,11 +1,216 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { ProductsDetails } from '@/assets/Data/ProductsDetails';
+import CategoryTag from '@/components/Pages/(main)/Categories/CategoryTag';
+import ImageModal from '@/components/Pages/(main)/Categories/ImageModal';
+import Footer from '@/components/Pages/(main)/Footer';
+import Header from '@/components/Pages/(main)/Header';
+import ProductCard from '@/components/Pages/(main)/Home/ProductCard';
+import RatingStarsCard from '@/components/Pages/(main)/Home/ProductCard/RatingStarCard';
+import Icon from '@/components/UI/Icon';
+import colors from '@/global/colors';
+import { formatCurrency, formatRateNumber } from '@/utils/format';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
 
-  return <span>{id}</span>;
+  const product = ProductsDetails.find(product => product.id === id);
+  const images =
+    product && product?.data.images.length > 4
+      ? product?.data.images.slice(3)
+      : product?.data.images;
+
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+
+  return (
+    <>
+      <div className="flex min-h-screen flex-col">
+        <Header />
+
+        <div className="flex flex-1 flex-col gap-8 px-6 py-8">
+          <div className="flex gap-3">
+            <div className="cursor-pointer" onClick={() => router.back()}>
+              <Icon fill={colors.neutral[80]} name="ArrowIcon" size={32} />
+            </div>
+
+            <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
+              Detalhes do brinquedo
+            </span>
+          </div>
+
+          <div className="flex w-fit flex-col justify-center gap-9 self-center p-3">
+            <div className="flex gap-9">
+              <div className="flex gap-3">
+                <div
+                  className={`flex flex-col gap-4 ${
+                    product && product.data.images.length > 4
+                      ? 'justify-between'
+                      : 'justify-start'
+                  }`}
+                >
+                  {images?.map((image, index) => {
+                    const isSelected = selectedIndex === index;
+
+                    return (
+                      <div
+                        key={index}
+                        className="cursor-pointer rounded-xl p-3 transition-colors duration-300"
+                        style={{
+                          backgroundColor: isSelected
+                            ? colors.secondary[60]
+                            : colors.primary[40],
+                        }}
+                        onClick={() => setSelectedIndex(index)}
+                      >
+                        <Image
+                          alt="ProductImage"
+                          className="object-contain"
+                          height={68}
+                          src={image}
+                          width={68}
+                        />
+                      </div>
+                    );
+                  })}
+
+                  {product && product?.data.images.length > 4 && (
+                    <div
+                      className="bg-primary-40 flex aspect-square w-full cursor-pointer items-center justify-center rounded-xl"
+                      onClick={() => setImageModalOpen(true)}
+                    >
+                      <span className="text-neutral-60 font-roboto text-2xl font-medium">
+                        + {product?.data.images.length - 4}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="h-fit w-fit rounded-xl bg-white p-3">
+                  <Image
+                    alt="ProductImage"
+                    className="object-contain"
+                    height={500}
+                    src={product ? product.data.images[selectedIndex] : ''}
+                    width={500}
+                  />
+                </div>
+              </div>
+
+              <div className="flex w-[600px] flex-col gap-5 py-5">
+                <span className="text-neutral-40 font-roboto text-base font-semibold">
+                  {product?.id}
+                </span>
+
+                <div className="flex flex-col gap-2">
+                  <span className="text-neutral-80 font-roboto text-2xl font-semibold">
+                    {product?.data.name}
+                  </span>
+
+                  <div className="flex gap-2">
+                    {product?.categories.map(category => (
+                      <CategoryTag
+                        key={category.id}
+                        id={category.id}
+                        label={category.name}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1">
+                  <span className="text-neutral-40 font-roboto text-xs font-medium">
+                    {product?.data.rating},0
+                  </span>
+
+                  <RatingStarsCard rating={product?.data.rating || 0} />
+
+                  <span className="text-neutral-40 font-roboto text-xs font-medium">
+                    ({formatRateNumber(product?.data.rateAmmount || 0)})
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <span className="text-neutral-80 font-lexend text-2xl font-semibold">
+                    Descrição
+                  </span>
+
+                  <span className="text-neutral-60 font-roboto text-base font-normal">
+                    {product?.data.description}
+                  </span>
+                </div>
+
+                <span className="text-neutral-80 font-roboto text-2xl font-semibold">
+                  {formatCurrency(product?.data.price || 0)}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 p-3">
+              <div className="flex items-center gap-3">
+                <Icon fill={colors.neutral[80]} name="DetailIcon" size={28} />
+
+                <span className="text-neutral-80 font-lexend text-2xl font-semibold">
+                  Detalhes do produto
+                </span>
+              </div>
+
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: product?.data.details || '',
+                }}
+              />
+            </div>
+
+            <div className="flex flex-col gap-3 p-3" style={{ width: 1264 }}>
+              <div className="flex items-center gap-3">
+                <Icon
+                  fill={colors.neutral[80]}
+                  name="SimiliarProductsIcon"
+                  size={28}
+                />
+
+                <span className="text-neutral-80 font-lexend text-2xl font-semibold">
+                  Produtos semelhantes
+                </span>
+              </div>
+
+              <div className="custom-scrollbar flex gap-5 overflow-x-auto py-3">
+                {product?.data.similarProducts.map((similarProduct, index) => (
+                  <div key={similarProduct.id + index} className="flex">
+                    <ProductCard
+                      id={similarProduct.id}
+                      image={similarProduct.image}
+                      imgWidth={240}
+                      name={similarProduct.name}
+                      price={similarProduct.price}
+                      rateAmmount={similarProduct.rateAmmount}
+                      rating={similarProduct.rating}
+                      width={280}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Footer />
+      </div>
+
+      <ImageModal
+        images={product?.data.images || []}
+        isOpen={imageModalOpen}
+        toyName={product?.data.name || ''}
+        onBackdropPress={() => setImageModalOpen(false)}
+      />
+    </>
+  );
 };
 
 export default ProductDetail;

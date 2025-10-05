@@ -45,7 +45,7 @@ const Products = () => {
             </div>
 
             <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
-              Brinquedos em destaque
+              {category?.category.name}
             </span>
           </div>
 
@@ -93,6 +93,7 @@ const Products = () => {
                 price={product.price}
                 rateAmmount={product.rateAmmount}
                 rating={product.rating}
+                width={280}
               />
             ))}
           </div>

@@ -1,4 +1,4 @@
-import { DefaultImg } from '@/../public/Images';
+import { DefaultImg, DoniImg } from '@/../public/Images';
 
 export const ProductsOfCatregoryData = [
   {
@@ -8,7 +8,7 @@ export const ProductsOfCatregoryData = [
       products: [
         {
           id: '1',
-          image: DefaultImg,
+          image: DoniImg,
           name: 'Carrinho de Polícia com Luz e Som',
           rating: 4.6,
           rateAmmount: 120,
@@ -100,7 +100,7 @@ export const ProductsOfCatregoryData = [
   {
     category: {
       id: '5',
-      name: 'Brinquedos de Montar',
+      name: 'Jogos',
       products: [
         {
           id: '9',

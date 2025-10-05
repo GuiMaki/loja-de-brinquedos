@@ -6,7 +6,7 @@ import { HorizontalLogoImg } from '@/../public/Images';
 import HeaderOption from './HeaderOption';
 
 type HeaderProps = {
-  page: 'Home' | 'Categories' | 'Admin' | 'AboutUs';
+  page?: 'Home' | 'Categories' | 'Admin' | 'AboutUs';
   canGoBack?: boolean;
 };
 
