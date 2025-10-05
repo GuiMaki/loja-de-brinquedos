@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { HorizontalLogoImg } from '@/../public/Images';
 
@@ -10,11 +10,13 @@ type HeaderProps = {
 };
 
 const Header = ({ page }: HeaderProps) => {
+  const router = useRouter();
+
   const handleClick = (targetPage: HeaderProps['page'], path: string) => {
     if (page === targetPage) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      redirect(path);
+      router.replace(path);
     }
   };
 
