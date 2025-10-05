@@ -1,4 +1,5 @@
 import Icon from '@/components/UI/Icon';
+import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
 import { formatCurrency } from '@/utils/format';
 
@@ -17,7 +18,23 @@ const ProductListItem = ({
   name,
   price,
 }: ProductListItemProps) => {
+  const { openModal, closeModal } = useDefaultModal();
+
   const joinedCategories = categories.join(', ');
+
+  const handleDelete = () => {
+    openModal({
+      type: 'warning',
+      title: 'Excluir produto?',
+      message: 'Tem certeza que deseja excluir esse produto?',
+      notice: 'Essa ação não poderá ser desfeita',
+      confirmText: 'Excluir',
+      cancelText: 'Cancelar',
+      onCancel: closeModal,
+      onConfirm: () => console.log('Produto excluido'),
+      successMessage: 'Produto excluído com sucesso',
+    });
+  };
 
   return (
     <div className="border-neutral-20 flex w-full cursor-default items-center rounded-xl border bg-white px-3 py-2">
@@ -63,7 +80,7 @@ const ProductListItem = ({
 
         <div
           className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2"
-          onClick={() => alert(`delete id: ${id}`)}
+          onClick={handleDelete}
         >
           <Icon color={colors.neutral[60]} name="DeleteIcon" size={24} />
         </div>

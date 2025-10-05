@@ -20,11 +20,12 @@ const DefaultModalButton = ({ text, onClick, color, wired }: Props) => {
 
   return (
     <button
-      className={`border-alert-warning-primary relative flex min-w-[100px] items-center justify-center rounded-lg border px-2 py-1.5 ${!isLoading && 'hover:bg-black/5'}`}
+      className={`relative flex min-w-[100px] items-center justify-center rounded-lg border px-2 py-1.5 ${!isLoading && 'hover:bg-black/5'}`}
       disabled={isLoading}
       style={{
         cursor: isLoading ? 'default' : 'pointer',
         backgroundColor: wired ? 'transparent' : color,
+        borderColor: color,
       }}
       onClick={handleOnClick}
     >
