@@ -3,20 +3,28 @@
 import { useState } from 'react';
 
 import Header from '@/components/Pages/(main)/Home/Header';
-import LabelCheckbox from '@/components/UI/LabelCheckbox';
+import SearchBar from '@/components/UI/SearchBar';
 
 const Home = () => {
-  const [selected, setSelected] = useState(false);
+  const [search, setSearch] = useState('');
 
   return (
     <div className="flex-1">
       <Header />
 
-      <LabelCheckbox
-        label="teste"
-        selected={selected}
-        onPress={() => setSelected(!selected)}
-      />
+      <div className="flex flex-col px-6 py-8">
+        <div className="flex justify-between p-3">
+          <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
+            Brinquedos em destaque
+          </span>
+
+          <SearchBar
+            placeholder="Pesquise pelo nome do brinquedo"
+            value={search}
+            onChangeText={text => setSearch(text)}
+          />
+        </div>
+      </div>
     </div>
   );
 };
