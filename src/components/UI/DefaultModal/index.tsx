@@ -23,6 +23,7 @@ const DefaultModal = () => {
         title: 'Sucesso!',
         message: modal.successMessage,
         confirmText: 'Voltar',
+        type: 'success',
       });
     }
   };
@@ -37,7 +38,7 @@ const DefaultModal = () => {
   return (
     <DefaultModalBackdrop>
       <dialog className="relative flex h-[250px] w-[400px] flex-col overflow-hidden rounded-lg bg-white">
-        <DefaultModalHeader title={modal.title} />
+        <DefaultModalHeader title={modal.title} type={modal.type} />
 
         <div className="flex flex-grow flex-col gap-3 p-3">
           <p className="text-neutral-60 text-lg">{modal.message}</p>
@@ -52,6 +53,7 @@ const DefaultModal = () => {
           confirmText={modal.confirmText}
           handleCancel={handleCancel}
           handleConfirm={handleConfirm}
+          type={modal.type}
         />
       </dialog>
     </DefaultModalBackdrop>

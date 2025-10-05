@@ -1,3 +1,5 @@
+import colors from '@/global/colors';
+
 import DefaultModalButton from './DefaultModalButton';
 
 type Props = {
@@ -5,6 +7,7 @@ type Props = {
   cancelText?: string;
   handleConfirm?: () => Promise<void> | void;
   handleCancel?: () => Promise<void> | void;
+  type: 'warning' | 'alert' | 'success';
 };
 
 const DefaultModalFooter = ({
@@ -12,14 +15,40 @@ const DefaultModalFooter = ({
   cancelText,
   handleConfirm,
   handleCancel,
+  type,
 }: Props) => {
+  let color: string;
+
+  switch (type) {
+    case 'warning':
+      color = colors.alert.error.primary;
+      break;
+    case 'alert':
+      color = colors.alert.warning.primary;
+      break;
+    case 'success':
+      color = colors.alert.success.primary;
+      break;
+    default:
+      color = colors.alert.success.primary;
+  }
+
   return (
-    <div className="border-neutral-20 flex w-full border-t">
+    <div className="border-neutral-20 flex w-full items-center justify-end gap-2 border-t px-4 py-2">
       {cancelText && (
-        <DefaultModalButton text={cancelText} onClick={handleCancel} />
+        <DefaultModalButton
+          wired
+          color={color}
+          text={cancelText}
+          onClick={handleCancel}
+        />
       )}
 
-      <DefaultModalButton text={confirmText} onClick={handleConfirm} />
+      <DefaultModalButton
+        color={color}
+        text={confirmText}
+        onClick={handleConfirm}
+      />
     </div>
   );
 };

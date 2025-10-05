@@ -5,9 +5,11 @@ import { useDisableDelay } from '@/hooks/common';
 type Props = {
   text: string;
   onClick?: () => void | Promise<void>;
+  color: string;
+  wired?: boolean;
 };
 
-const DefaultModalButton = ({ text, onClick }: Props) => {
+const DefaultModalButton = ({ text, onClick, color, wired }: Props) => {
   const { executeWithDelay, isLoading } = useDisableDelay();
 
   const handleOnClick = () => {
@@ -18,12 +20,20 @@ const DefaultModalButton = ({ text, onClick }: Props) => {
 
   return (
     <button
-      className={`border-neutral-20 min-w-1/2 relative flex flex-grow items-center justify-center border-r p-3 ${!isLoading && 'hover:bg-black/5'}`}
+      className={`border-alert-warning-primary relative flex min-w-[100px] items-center justify-center rounded-lg border px-2 py-1.5 ${!isLoading && 'hover:bg-black/5'}`}
       disabled={isLoading}
-      style={{ cursor: isLoading ? 'default' : 'pointer' }}
+      style={{
+        cursor: isLoading ? 'default' : 'pointer',
+        backgroundColor: wired ? 'transparent' : color,
+      }}
       onClick={handleOnClick}
     >
-      <p className="text-primary-100 text-lg">{text}</p>
+      <span
+        className="font-roboto text-base font-medium"
+        style={{ color: wired ? color : colors.neutral.white }}
+      >
+        {text}
+      </span>
 
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/20">

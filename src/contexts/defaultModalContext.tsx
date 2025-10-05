@@ -11,6 +11,7 @@ export type DefaultModalProps = {
   cancelText?: string;
   onCancel?: () => void | Promise<void>;
   successMessage?: string;
+  type: 'warning' | 'alert' | 'success';
 };
 
 type ProviderProps = {

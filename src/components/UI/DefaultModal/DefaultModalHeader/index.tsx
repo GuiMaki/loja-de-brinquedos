@@ -1,26 +1,45 @@
-import Icon from '../../Icon';
+import colors from '@/global/colors';
+
+import Icon, { TIcon } from '../../Icon';
 
 type Props = {
   title: string;
-  onClose?: () => void;
+  type: 'warning' | 'alert' | 'success';
 };
 
-const DefaultModalHeader = ({ title, onClose }: Props) => {
-  return (
-    <div className="bg-neutral-background border-neutral-20 flex items-center justify-between border-b p-3">
-      <h5 className="text-xl">{title}</h5>
+const DefaultModalHeader = ({ title, type }: Props) => {
+  let iconName: TIcon;
+  let color: string;
 
-      {onClose && (
-        <button
-          className="flex cursor-pointer items-center justify-center rounded-full hover:bg-black/5"
-          style={{ width: 28, height: 28 }}
-          onClick={onClose}
-        >
-          <Icon name="XIcon" size={16} />
-        </button>
-      )}
-    </div>
-  );
+  switch (type) {
+    case 'warning':
+      iconName = 'WarningIcon';
+      color = colors.alert.error.primary;
+      break;
+    case 'alert':
+      iconName = 'AlertIcon';
+      color = colors.alert.warning.primary;
+      break;
+    case 'success':
+      iconName = 'SuccessIcon';
+      color = colors.alert.success.primary;
+      break;
+    default:
+      iconName = 'SuccessIcon';
+      color = colors.alert.success.primary;
+  }
+
+  if (type) {
+    return (
+      <div className="border-neutral-20 flex w-full cursor-default items-center justify-center gap-2 border-b p-4">
+        <Icon color={color} name={iconName} size={24} />
+
+        <span className="font-lexend text-xl font-normal" style={{ color }}>
+          {title}
+        </span>
+      </div>
+    );
+  }
 };
 
 export default DefaultModalHeader;
