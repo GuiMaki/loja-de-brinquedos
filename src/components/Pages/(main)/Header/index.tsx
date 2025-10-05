@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -57,7 +59,13 @@ const Header = ({ page, canGoBack }: HeaderProps) => {
             label="Administração"
             selected={page === 'Admin'}
             // onPress={() => handleClick('Admin', '/admin')}
-            onPress={() => setIsLoginModalOpen(true)}
+            onPress={() => {
+              if (page === 'Admin') {
+                return handleClick('Admin', '/admin');
+              }
+
+              return setIsLoginModalOpen(true);
+            }}
           />
 
           <HeaderOption
