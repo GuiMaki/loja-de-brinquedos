@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 
+import { HighlightedProducts } from '@/assets/Data/HighlightedProducts';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
 import BrandSelector from '@/components/Pages/(main)/Home/FilterBar/Brands';
 import PriceRangeSelector from '@/components/Pages/(main)/Home/FilterBar/Price';
 import RatingSelector from '@/components/Pages/(main)/Home/FilterBar/Rating';
+import ProductCard from '@/components/Pages/(main)/Home/ProductCard';
 import SearchBar from '@/components/UI/SearchBar';
 
 const Home = () => {
@@ -39,8 +41,8 @@ const Home = () => {
           />
         </div>
 
-        <div className="flex justify-between">
-          <div className="flex flex-col gap-3 rounded-xl bg-white py-4 pl-4 pr-20">
+        <div className="flex gap-14">
+          <div className="flex h-fit flex-col gap-3 rounded-xl bg-white py-4 pl-4 pr-20">
             {(selectedBrands.length > 0 || selectedPrice || selectedRating) && (
               <span
                 className="text-primary-100 cursor-pointer font-roboto text-sm font-semibold"
@@ -64,6 +66,20 @@ const Home = () => {
               selectedRating={selectedRating}
               setSelectedRating={setSelectedRating}
             />
+          </div>
+
+          <div className="grid grid-cols-5 gap-12">
+            {HighlightedProducts.map(product => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                image={product.image}
+                name={product.name}
+                price={product.price}
+                rateAmmount={product.rateAmmount}
+                rating={product.rating}
+              />
+            ))}
           </div>
         </div>
       </div>
