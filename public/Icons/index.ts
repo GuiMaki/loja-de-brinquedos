@@ -1,4 +1,5 @@
 export { default as AddressIcon } from './Address.svg';
+export { default as ArrowIcon } from './Arrow.svg';
 export { default as CheckIcon } from './Check.svg';
 export { default as ChevronIcon } from './Chevron.svg';
 export { default as CNPJIcon } from './cnpj.svg';

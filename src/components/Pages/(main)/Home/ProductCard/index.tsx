@@ -27,8 +27,8 @@ const ProductCard = ({
 
   return (
     <div
-      className="flex cursor-pointer flex-col gap-3 rounded-xl bg-white p-5"
-      onClick={() => router.push(`categories/products/productsDetail/${id}`)}
+      className="flex h-fit cursor-pointer flex-col gap-3 rounded-xl bg-white p-5"
+      onClick={() => router.push(`/categories/products/productsDetail/${id}`)}
     >
       <Image
         alt="ProductImage"
@@ -36,7 +36,7 @@ const ProductCard = ({
         style={{ width: '100%', objectFit: 'contain' }}
       />
 
-      <span className="text-secondary-100 font-lexend text-xl font-semibold">
+      <span className="text-secondary-100 truncate font-lexend text-xl font-semibold">
         {name}
       </span>
 

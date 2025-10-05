@@ -7,17 +7,22 @@ import HeaderOption from './HeaderOption';
 
 type HeaderProps = {
   page: 'Home' | 'Categories' | 'Admin' | 'AboutUs';
+  canGoBack?: boolean;
 };
 
-const Header = ({ page }: HeaderProps) => {
+const Header = ({ page, canGoBack }: HeaderProps) => {
   const router = useRouter();
 
   const handleClick = (targetPage: HeaderProps['page'], path: string) => {
-    if (page === targetPage) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      router.replace(path);
+    if (canGoBack) {
+      return router.replace(path);
     }
+
+    if (page === targetPage) {
+      return window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    return router.replace(path);
   };
 
   return (
