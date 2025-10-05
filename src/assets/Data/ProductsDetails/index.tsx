@@ -189,7 +189,7 @@ export const ProductsDetails = [
       rating: 4,
       rateAmmount: 190,
       price: 149.9,
-      images: [DefaultImg, DefaultImg],
+      images: [WillImg, WillImg],
       description:
         'Boneca fashion com roupas e acessórios, ideal para brincadeiras de faz de conta.',
       details: `

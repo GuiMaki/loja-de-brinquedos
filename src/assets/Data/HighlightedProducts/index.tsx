@@ -1,8 +1,8 @@
-import { DefaultImg } from '@/../public/Images';
+import { DefaultImg, DoniImg, WillImg } from '@/../public/Images';
 
 export const HighlightedProductsData = [
   {
-    image: DefaultImg,
+    image: WillImg,
     name: 'Boneca Fashion com Acessórios',
     rating: 4,
     rateAmmount: 1320,
@@ -16,5 +16,45 @@ export const HighlightedProductsData = [
     rating: 4.7,
     rateAmmount: 220,
     price: 199.9,
+  },
+  {
+    id: '1',
+    image: DoniImg,
+    name: 'Carrinho de Polícia com Luz e Som',
+    rating: 4.6,
+    rateAmmount: 120,
+    price: 79.9,
+  },
+  {
+    id: '2',
+    image: DefaultImg,
+    name: 'Hot Wheels Loop Radical',
+    rating: 4.8,
+    rateAmmount: 210,
+    price: 99.9,
+  },
+  {
+    id: '14',
+    image: DefaultImg,
+    name: 'Globo Terrestre Infantil',
+    rating: 4.8,
+    rateAmmount: 210,
+    price: 129.9,
+  },
+  {
+    id: '6',
+    image: DefaultImg,
+    name: 'Blocos Criativos 500 Peças',
+    rating: 4.9,
+    rateAmmount: 340,
+    price: 249.9,
+  },
+  {
+    id: '8',
+    image: DefaultImg,
+    name: 'Pelúcia Pikachu 30cm',
+    rating: 4.9,
+    rateAmmount: 800,
+    price: 129.9,
   },
 ];

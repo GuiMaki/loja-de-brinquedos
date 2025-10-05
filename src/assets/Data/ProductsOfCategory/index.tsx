@@ -1,4 +1,4 @@
-import { DefaultImg, DoniImg } from '@/../public/Images';
+import { DefaultImg, DoniImg, WillImg } from '@/../public/Images';
 
 export const ProductsOfCatregoryData = [
   {
@@ -32,7 +32,7 @@ export const ProductsOfCatregoryData = [
       products: [
         {
           id: '3',
-          image: DefaultImg,
+          image: WillImg,
           name: 'Boneca Fashion com Acessórios',
           rating: 4.8,
           rateAmmount: 190,
