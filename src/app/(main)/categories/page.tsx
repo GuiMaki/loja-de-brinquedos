@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import Header from '@/Components/Pages/(main)/Header';
-import SearchBar from '@/Components/UI/SearchBar';
+import Header from '@/components/Pages/(main)/Header';
+import SearchBar from '@/components/UI/SearchBar';
 
 const Categories = () => {
   const [search, setSearch] = useState('');

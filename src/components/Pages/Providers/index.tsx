@@ -8,7 +8,7 @@ import {
 import { PropsWithChildren } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import DefaultModal from '@/Components/UI/DefaultModal';
+import DefaultModal from '@/components/UI/DefaultModal';
 import { DefaultModalProvider } from '@/contexts/defaultModalContext';
 import { handleError } from '@/utils/handleError';
 

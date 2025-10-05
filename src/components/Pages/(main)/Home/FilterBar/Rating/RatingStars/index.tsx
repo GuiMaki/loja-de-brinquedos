@@ -1,4 +1,4 @@
-import Icon from '@/Components/UI/Icon';
+import Icon from '@/components/UI/Icon';
 import colors from '@/global/colors';
 
 type RatingStarsProps = {

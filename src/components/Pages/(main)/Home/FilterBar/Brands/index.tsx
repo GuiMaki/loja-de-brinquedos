@@ -3,9 +3,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { Brands } from '@/Assets/Data/Brands';
-import Icon from '@/Components/UI/Icon';
-import LabelCheckbox from '@/Components/UI/LabelCheckbox';
+import { Brands } from '@/assets/Data/Brands';
+import Icon from '@/components/UI/Icon';
+import LabelCheckbox from '@/components/UI/LabelCheckbox';
 
 type BrandSelectorProps = {
   selectedBrands: string[];

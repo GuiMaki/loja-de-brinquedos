@@ -1,4 +1,4 @@
-import Loader from '@/Components/UI/Loader';
+import Loader from '@/components/UI/Loader';
 import colors from '@/global/colors';
 import { useDisableDelay } from '@/hooks/common';
 

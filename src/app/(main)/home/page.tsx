@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 
-import Header from '@/Components/Pages/(main)/Header';
-import BrandSelector from '@/Components/Pages/(main)/Home/FilterBar/Brands';
-import PriceRangeSelector from '@/Components/Pages/(main)/Home/FilterBar/Price';
-import RatingSelector from '@/Components/Pages/(main)/Home/FilterBar/Rating';
-import SearchBar from '@/Components/UI/SearchBar';
+import Header from '@/components/Pages/(main)/Header';
+import BrandSelector from '@/components/Pages/(main)/Home/FilterBar/Brands';
+import PriceRangeSelector from '@/components/Pages/(main)/Home/FilterBar/Price';
+import RatingSelector from '@/components/Pages/(main)/Home/FilterBar/Rating';
+import SearchBar from '@/components/UI/SearchBar';
 
 const Home = () => {
   const [search, setSearch] = useState('');

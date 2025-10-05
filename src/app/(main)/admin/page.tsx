@@ -1,6 +1,6 @@
 'use client';
 
-import Header from '@/Components/Pages/(main)/Header';
+import Header from '@/components/Pages/(main)/Header';
 
 const Admin = () => {
   return (
