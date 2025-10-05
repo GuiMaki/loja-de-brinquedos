@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { HorizontalLogoImg } from '@/assets';
+import { HorizontalLogoImg } from '@/../public/Images';
 
 import HeaderOption from './HeaderOption';
 
