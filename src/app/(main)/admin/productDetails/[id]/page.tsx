@@ -24,7 +24,10 @@ const ProductDetails = () => {
       <div className="flex flex-1 flex-col gap-8 px-6 py-8">
         <div className="flex justify-between p-3">
           <div className="flex gap-3">
-            <div className="cursor-pointer" onClick={() => router.back()}>
+            <div
+              className="hover:bg-neutral-20 h-fit cursor-pointer rounded-full hover:opacity-60"
+              onClick={() => router.back()}
+            >
               <Icon fill={colors.neutral[80]} name="ArrowIcon" size={32} />
             </div>
 
@@ -33,7 +36,10 @@ const ProductDetails = () => {
             </span>
           </div>
 
-          <div className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2">
+          <div
+            className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60"
+            onClick={() => router.push(`/admin/editProduct/${id}`)}
+          >
             <span className="font-roboto text-xl font-medium text-white">
               Editar produto
             </span>

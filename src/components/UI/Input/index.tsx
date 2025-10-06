@@ -18,8 +18,9 @@ type Props<TFieldValues extends FieldValues> = {
   placeholder?: string;
   leftIcon?: IconProps;
   mask?: string;
+  multiline?: boolean; // nova prop
 } & UseControllerProps<TFieldValues> &
-  InputHTMLAttributes<HTMLInputElement>;
+  InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>;
 
 const Input = <TFieldValues extends FieldValues>({
   label,
@@ -27,6 +28,7 @@ const Input = <TFieldValues extends FieldValues>({
   placeholder,
   leftIcon,
   mask,
+  multiline = false, // padrão false
   control,
   name,
   ...props
@@ -41,17 +43,25 @@ const Input = <TFieldValues extends FieldValues>({
     name,
   });
 
+  const inputStyle = {
+    paddingLeft: leftIcon ? 40 : 12,
+    paddingRight: password ? 44 : undefined,
+    height: multiline ? '100%' : undefined,
+  };
+
   return (
-    <div className="w-full flex-col gap-1">
+    <div className="flex h-full w-full flex-col gap-1">
       {label && (
         <span className="text-neutral-60 font-roboto text-xl font-normal">
           {label}
         </span>
       )}
 
-      <div className="gap-px">
+      <div className="relative h-full flex-1 gap-px">
         <div
-          className="relative items-center overflow-hidden rounded-lg border bg-white"
+          className={`relative overflow-hidden rounded-lg border bg-white ${
+            multiline ? 'h-full' : ''
+          }`}
           style={{
             borderColor: error?.message
               ? colors.alert.error.primary
@@ -65,25 +75,33 @@ const Input = <TFieldValues extends FieldValues>({
               id={name}
               mask={mask}
               placeholder={placeholder}
-              style={{
-                paddingLeft: leftIcon ? 40 : 12,
-                paddingRight: password ? 44 : undefined,
-              }}
+              style={inputStyle}
               type={passwordHidden ? 'password' : 'text'}
               value={field.value ?? ''}
               onBlur={field.onBlur}
               onChange={field.onChange}
             />
+          ) : multiline ? (
+            <textarea
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              ref={field.ref as any}
+              className="text-neutral-80 placeholder:text-neutral-20 w-full resize-none overflow-auto p-2 text-lg focus-within:outline-none"
+              id={name}
+              placeholder={placeholder}
+              style={inputStyle}
+              value={field.value ?? ''}
+              onBlur={field.onBlur}
+              onChange={field.onChange}
+              {...props}
+            />
           ) : (
             <input
-              ref={field.ref}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              ref={field.ref as any}
               className="text-neutral-80 placeholder:text-neutral-20 w-full p-2 text-lg focus-within:outline-none"
               id={name}
               placeholder={placeholder}
-              style={{
-                paddingLeft: leftIcon ? 40 : 12,
-                paddingRight: password ? 44 : undefined,
-              }}
+              style={inputStyle}
               type={passwordHidden ? 'password' : 'text'}
               value={field.value ?? ''}
               onBlur={field.onBlur}

@@ -7,7 +7,7 @@ type Props = {
   cancelText?: string;
   handleConfirm?: () => Promise<void> | void;
   handleCancel?: () => Promise<void> | void;
-  type: 'warning' | 'alert' | 'success';
+  type: 'warning' | 'alert' | 'success' | 'custom';
 };
 
 const DefaultModalFooter = ({
@@ -28,6 +28,9 @@ const DefaultModalFooter = ({
       break;
     case 'success':
       color = colors.alert.success.primary;
+      break;
+    case 'custom':
+      color = colors.secondary[100];
       break;
     default:
       color = colors.alert.success.primary;

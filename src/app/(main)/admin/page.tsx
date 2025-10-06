@@ -45,7 +45,7 @@ const Admin = () => {
             Brinquedos cadastrados
           </span>
 
-          <div className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2">
+          <div className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60">
             <span className="font-roboto text-xl font-medium text-white">
               Adicionar brinquedo
             </span>

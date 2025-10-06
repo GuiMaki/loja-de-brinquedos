@@ -13,7 +13,7 @@ const RatingStars = ({
   onPress,
 }: RatingStarsProps) => {
   return (
-    <div className="flex cursor-pointer" onClick={onPress}>
+    <div className="flex cursor-pointer hover:opacity-60" onClick={onPress}>
       {[1, 2, 3, 4, 5].map(star => {
         const isFilled = star <= rating;
         return (

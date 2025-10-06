@@ -40,7 +40,10 @@ const Products = () => {
       <div className="flex flex-1 flex-col gap-8 px-6 py-8">
         <div className="flex justify-between p-3">
           <div className="flex gap-3">
-            <div className="cursor-pointer" onClick={() => router.back()}>
+            <div
+              className="hover:bg-neutral-20 h-fit cursor-pointer rounded-full hover:opacity-60"
+              onClick={() => router.back()}
+            >
               <Icon fill={colors.neutral[80]} name="ArrowIcon" size={32} />
             </div>
 

@@ -66,7 +66,7 @@ const ImageModal = ({
                 return (
                   <div
                     key={index}
-                    className="cursor-pointer rounded-xl p-3"
+                    className={`cursor-pointer rounded-xl p-3 hover:${isSelected ? 'opacity-100' : 'opacity-60'}`}
                     style={{
                       backgroundColor: isSelected
                         ? colors.secondary[60]

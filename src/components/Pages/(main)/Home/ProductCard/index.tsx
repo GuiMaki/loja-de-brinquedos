@@ -31,7 +31,7 @@ const ProductCard = ({
 
   return (
     <div
-      className="flex h-fit cursor-pointer flex-col gap-3 rounded-xl bg-white p-5"
+      className="flex h-fit cursor-pointer flex-col gap-3 rounded-xl bg-white p-5 hover:opacity-60"
       style={{ width: width && width }}
       onClick={() => router.push(`/categories/products/productsDetail/${id}`)}
     >

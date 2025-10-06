@@ -62,7 +62,7 @@ const BrandSelector = ({
 
       {Brands.length > 4 && (
         <div
-          className="flex cursor-pointer items-center"
+          className="flex cursor-pointer items-center hover:opacity-60"
           style={{ gap: expanded ? 8 : 22 }}
           onClick={() => setExpanded(prev => !prev)}
         >

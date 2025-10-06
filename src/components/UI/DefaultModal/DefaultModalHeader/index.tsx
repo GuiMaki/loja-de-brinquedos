@@ -4,7 +4,7 @@ import Icon, { TIcon } from '../../Icon';
 
 type Props = {
   title: string;
-  type: 'warning' | 'alert' | 'success';
+  type: 'warning' | 'alert' | 'success' | 'custom';
 };
 
 const DefaultModalHeader = ({ title, type }: Props) => {
@@ -23,6 +23,10 @@ const DefaultModalHeader = ({ title, type }: Props) => {
     case 'success':
       iconName = 'SuccessIcon';
       color = colors.alert.success.primary;
+      break;
+    case 'custom':
+      iconName = 'AlertIcon';
+      color = colors.secondary[100];
       break;
     default:
       iconName = 'SuccessIcon';

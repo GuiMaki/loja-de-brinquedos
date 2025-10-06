@@ -68,21 +68,21 @@ const ProductListItem = ({
 
       <div className="flex flex-1 justify-center gap-3">
         <div
-          className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2"
+          className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2 hover:opacity-60"
           onClick={() => router.push(`/admin/productDetails/${id}`)}
         >
           <Icon fill={colors.neutral[60]} name="EyeIcon" size={24} />
         </div>
 
         <div
-          className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2"
-          onClick={() => alert(`edit id: ${id}`)}
+          className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2 hover:opacity-60"
+          onClick={() => router.push(`/admin/editProduct/${id}`)}
         >
           <Icon color={colors.neutral[60]} name="EditIcon" size={24} />
         </div>
 
         <div
-          className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2"
+          className="hover:bg-neutral-20 cursor-pointer items-center justify-center rounded-full p-2 hover:opacity-60"
           onClick={handleDelete}
         >
           <Icon color={colors.neutral[60]} name="DeleteIcon" size={24} />

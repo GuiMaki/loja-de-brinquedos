@@ -15,6 +15,7 @@ export { default as MetaIcon } from './Meta.svg';
 export { default as SimiliarProductsIcon } from './SimilarProducts.svg';
 export { default as StarIcon } from './Star.svg';
 export { default as SuccessIcon } from './Success.svg';
+export { default as UploadIcon } from './Upload.svg';
 export { default as WarningIcon } from './Warning.svg';
 export { default as XIcon } from './X.svg';
 

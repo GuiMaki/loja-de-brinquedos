@@ -9,7 +9,7 @@ type LabelCheckboxProps = {
 const LabelCheckbox = ({ selected, onPress, label }: LabelCheckboxProps) => {
   return (
     <div
-      className="flex w-fit cursor-pointer items-center gap-2"
+      className="flex w-fit cursor-pointer items-center gap-2 hover:opacity-60"
       onClick={onPress}
     >
       <Checkbox selected={selected} />

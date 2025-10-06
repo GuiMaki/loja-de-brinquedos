@@ -34,8 +34,11 @@ const ProductDetail = () => {
         <Header />
 
         <div className="flex flex-1 flex-col gap-8 px-6 py-8">
-          <div className="flex gap-3">
-            <div className="cursor-pointer" onClick={() => router.back()}>
+          <div className="flex gap-3 p-3">
+            <div
+              className="hover:bg-neutral-20 cursor-pointer rounded-full hover:opacity-60"
+              onClick={() => router.back()}
+            >
               <Icon fill={colors.neutral[80]} name="ArrowIcon" size={32} />
             </div>
 
@@ -60,7 +63,7 @@ const ProductDetail = () => {
                     return (
                       <div
                         key={index}
-                        className="cursor-pointer rounded-xl p-3 transition-colors duration-300"
+                        className={`cursor-pointer rounded-xl p-3 transition-colors duration-300 hover:${isSelected ? 'opacity-100' : 'opacity-60'}`}
                         style={{
                           backgroundColor: isSelected
                             ? colors.secondary[60]
@@ -81,7 +84,7 @@ const ProductDetail = () => {
 
                   {product && product?.data.images.length > 4 && (
                     <div
-                      className="bg-primary-40 flex aspect-square w-full cursor-pointer items-center justify-center rounded-xl"
+                      className="bg-primary-40 flex aspect-square w-full cursor-pointer items-center justify-center rounded-xl hover:opacity-60"
                       onClick={() => setImageModalOpen(true)}
                     >
                       <span className="text-neutral-60 font-roboto text-2xl font-medium">

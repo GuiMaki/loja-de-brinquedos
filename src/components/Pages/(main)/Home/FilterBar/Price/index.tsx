@@ -35,11 +35,11 @@ const PriceRangeSelector = ({
         Preço
       </span>
 
-      <div ref={containerRef} className="flex flex-col gap-2">
+      <div ref={containerRef} className="flex w-fit flex-col gap-2">
         {priceOptions.map(price => (
           <span
             key={price.id}
-            className="cursor-pointer font-roboto text-sm font-normal"
+            className="flex w-fit cursor-pointer whitespace-nowrap font-roboto text-sm font-normal hover:opacity-60"
             style={{
               color:
                 selectedPrice === price.label

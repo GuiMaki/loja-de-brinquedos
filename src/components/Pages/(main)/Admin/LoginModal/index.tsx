@@ -17,10 +17,6 @@ type LoginModalProps = {
 const LoginModal = ({ isOpen, onCancel }: LoginModalProps) => {
   const router = useRouter();
 
-  if (!isOpen) {
-    return null;
-  }
-
   const { handleSubmit, control } = useForm<ZLoginForm>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -28,6 +24,10 @@ const LoginModal = ({ isOpen, onCancel }: LoginModalProps) => {
       password: '',
     },
   });
+
+  if (!isOpen) {
+    return null;
+  }
 
   const onSubmit = () => {
     router.replace('/admin');
