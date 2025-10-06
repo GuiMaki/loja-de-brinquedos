@@ -1,11 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ProductsDetails } from '@/assets/Data/ProductsDetails';
 import CategoriesModal from '@/components/Pages/(main)/Admin/CategoriesModal';
 import Header from '@/components/Pages/(main)/Header';
 import CurrencyInput from '@/components/UI/CurrencyInput';
@@ -15,23 +14,16 @@ import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
 import { ProductForm, ProductSchema } from '@/validation/product';
 
-const EditProduct = () => {
+const AddProduct = () => {
   const router = useRouter();
-  const { id } = useParams<{ id: string }>();
   const { openModal, closeModal } = useDefaultModal();
-
-  const product = ProductsDetails.find(product => product.id === id);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [hasCategory, setHasCategory] = useState(true);
-  const [images, setImages] = useState<string[]>(
-    product?.data.images.map(img =>
-      typeof img === 'string' ? img : img.src,
-    ) || [],
-  );
+  const [images, setImages] = useState<string[]>([]);
 
   const [categories, setCategories] = useState<{ id: string; name: string }[]>(
-    product?.categories || [],
+    [],
   );
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -39,12 +31,12 @@ const EditProduct = () => {
   const { handleSubmit, control, setValue } = useForm<ProductForm>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
-      category: product?.categories,
-      name: product?.data.name,
-      price: product?.data.price,
-      brand: product?.data.brand,
-      description: product?.data.description,
-      details: product?.data.details,
+      category: [],
+      name: '',
+      price: 0,
+      brand: '',
+      description: '',
+      details: '',
     },
   });
 
@@ -59,7 +51,7 @@ const EditProduct = () => {
     openModal({
       type: 'success',
       title: 'Sucesso!',
-      message: 'Produto editado com sucesso!',
+      message: 'Produto cadastrado com sucesso!',
       confirmText: 'Voltar',
       onConfirm: () => router.back(),
     });
@@ -70,8 +62,7 @@ const EditProduct = () => {
       type: 'alert',
       title: 'Voltar',
       message: 'Tem certeza que deseja voltar?',
-      notice:
-        'Essa ação não poderá ser desfeita. As alterações não serão salvas.',
+      notice: 'Essa ação não poderá ser desfeita. Os dados não serão salvas.',
       confirmText: 'Voltar',
       onConfirm: () => router.back(),
       cancelText: 'Cancelar',
@@ -126,7 +117,7 @@ const EditProduct = () => {
               </div>
 
               <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
-                Editar produto - {id}
+                Cadastrar produto
               </span>
             </div>
 
@@ -181,7 +172,7 @@ const EditProduct = () => {
                     </div>
                   ))
                 ) : (
-                  <span className="text-neutral-40 font-roboto text-base">
+                  <span className="text-neutral-40 text-center font-roboto text-base font-light">
                     Nenhuma imagem adicionada
                   </span>
                 )}
@@ -309,4 +300,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default AddProduct;

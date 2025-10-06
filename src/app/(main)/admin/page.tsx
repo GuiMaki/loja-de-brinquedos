@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { ProductsDetails } from '@/assets/Data/ProductsDetails';
@@ -12,6 +13,7 @@ import colors from '@/global/colors';
 const ITEMS_PER_PAGE = 10;
 
 const Admin = () => {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(ProductsDetails.length / ITEMS_PER_PAGE);
@@ -45,7 +47,10 @@ const Admin = () => {
             Brinquedos cadastrados
           </span>
 
-          <div className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60">
+          <div
+            className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60"
+            onClick={() => router.push('/admin/addProduct')}
+          >
             <span className="font-roboto text-xl font-medium text-white">
               Adicionar brinquedo
             </span>
