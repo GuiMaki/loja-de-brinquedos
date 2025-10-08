@@ -7,7 +7,6 @@ import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
 import BrandSelector from '@/components/Pages/(main)/Home/FilterBar/Brands';
 import PriceRangeSelector from '@/components/Pages/(main)/Home/FilterBar/Price';
-import RatingSelector from '@/components/Pages/(main)/Home/FilterBar/Rating';
 import ProductCard from '@/components/Pages/(main)/Home/ProductCard';
 import Icon from '@/components/UI/Icon';
 import Loader from '@/components/UI/Loader';
@@ -93,15 +92,10 @@ const Products = () => {
               selectedPrice={selectedPrice}
               setSelectedPrice={setSelectedPrice}
             />
-
-            <RatingSelector
-              selectedRating={selectedRating}
-              setSelectedRating={setSelectedRating}
-            />
           </div>
 
           {isFetching ? (
-            <div className="w-full justify-center">
+            <div className="flex w-full justify-center">
               <Loader color={colors.primary[100]} size={20} />
             </div>
           ) : data && data.length > 0 ? (

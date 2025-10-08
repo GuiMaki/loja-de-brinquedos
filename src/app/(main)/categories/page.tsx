@@ -34,7 +34,7 @@ const Categories = () => {
         </div>
 
         {isFetching ? (
-          <div className="w-full justify-center">
+          <div className="flex w-full justify-center">
             <Loader color={colors.primary[100]} size={20} />
           </div>
         ) : data && data.length > 0 ? (
