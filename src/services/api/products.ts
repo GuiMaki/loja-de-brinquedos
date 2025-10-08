@@ -21,7 +21,7 @@ export const useGetProductsByCategory = (params: ProductParams) => {
   };
 
   return useQuery({
-    queryKey: ['category_data', params],
+    queryKey: ['products_by_category', params],
     queryFn: getProductsByCategory,
   });
 };
@@ -34,7 +34,7 @@ export const useGetProducts = () => {
   };
 
   return useQuery({
-    queryKey: ['category_data'],
+    queryKey: ['products_data'],
     queryFn: getProducts,
   });
 };
@@ -47,7 +47,20 @@ export const useGetHighlightedProducts = () => {
   };
 
   return useQuery({
-    queryKey: ['category_data'],
+    queryKey: ['products_highlighted'],
     queryFn: getHighlightedProducts,
+  });
+};
+
+export const useGetProductDetailById = (id: string) => {
+  const getProductDetailById = async () => {
+    const { data } = await http.get<IProductsData>(`brinquedos/${id}`);
+
+    return data;
+  };
+
+  return useQuery({
+    queryKey: ['product_details', id],
+    queryFn: getProductDetailById,
   });
 };

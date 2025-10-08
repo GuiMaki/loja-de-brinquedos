@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import { DefaultImg } from '@/../public/Images';
 import DefaultModalBackdrop from '@/components/UI/DefaultModal/DefaultModalBackdrop';
 import Icon from '@/components/UI/Icon';
 import colors from '@/global/colors';
+import { Imagen } from '@/interface/products';
 
 type ImageModalProps = {
   isOpen: boolean;
   onBackdropPress: () => void;
-  images: (typeof DefaultImg)[];
+  images: Imagen[];
   toyName: string;
 };
 
@@ -50,7 +50,7 @@ const ImageModal = ({
             alt="ProductImage"
             className="object-contain"
             height={500}
-            src={images[selectedIndex]}
+            src={images[selectedIndex].caminho}
             width={500}
           />
 
@@ -78,7 +78,7 @@ const ImageModal = ({
                       alt="ProductImage"
                       className="object-contain"
                       height={68}
-                      src={img}
+                      src={img.caminho}
                       width={68}
                     />
                   </div>

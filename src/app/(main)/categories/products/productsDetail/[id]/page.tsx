@@ -4,29 +4,28 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { ProductsDetails } from '@/assets/Data/ProductsDetails';
+import { DefaultImg } from '@/../public/Images';
 import CategoryTag from '@/components/Pages/(main)/Categories/CategoryTag';
 import ImageModal from '@/components/Pages/(main)/Categories/ImageModal';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
-import ProductCard from '@/components/Pages/(main)/Home/ProductCard';
 import RatingStarsCard from '@/components/Pages/(main)/Home/ProductCard/RatingStarCard';
 import Icon from '@/components/UI/Icon';
 import colors from '@/global/colors';
+import { useGetProductDetailById } from '@/services/api/products';
 import { formatCurrency, formatRateNumber } from '@/utils/format';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
 
-  const product = ProductsDetails.find(product => product.id === id);
-  const images =
-    product && product?.data.images.length > 4
-      ? product?.data.images.slice(3)
-      : product?.data.images;
-
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [imageModalOpen, setImageModalOpen] = useState(false);
+
+  const { data } = useGetProductDetailById(id);
+
+  const images =
+    data && data.imagens.length > 4 ? data.imagens.slice(3) : data?.imagens;
 
   return (
     <>
@@ -52,7 +51,7 @@ const ProductDetail = () => {
               <div className="flex gap-3">
                 <div
                   className={`flex flex-col gap-4 ${
-                    product && product.data.images.length > 4
+                    data && data.imagens.length > 4
                       ? 'justify-between'
                       : 'justify-start'
                   }`}
@@ -75,20 +74,20 @@ const ProductDetail = () => {
                           alt="ProductImage"
                           className="object-contain"
                           height={68}
-                          src={image}
+                          src={image.caminho}
                           width={68}
                         />
                       </div>
                     );
                   })}
 
-                  {product && product?.data.images.length > 4 && (
+                  {data && data.imagens.length > 4 && (
                     <div
                       className="bg-primary-40 flex aspect-square w-full cursor-pointer items-center justify-center rounded-xl hover:opacity-60"
                       onClick={() => setImageModalOpen(true)}
                     >
                       <span className="text-neutral-60 font-roboto text-2xl font-medium">
-                        + {product?.data.images.length - 4}
+                        + {data.imagens.length - 4}
                       </span>
                     </div>
                   )}
@@ -99,7 +98,7 @@ const ProductDetail = () => {
                     alt="ProductImage"
                     className="object-contain"
                     height={500}
-                    src={product ? product.data.images[selectedIndex] : ''}
+                    src={data?.imagens[selectedIndex].caminho || DefaultImg}
                     width={500}
                   />
                 </div>
@@ -107,20 +106,20 @@ const ProductDetail = () => {
 
               <div className="flex w-[600px] flex-col gap-5 py-5">
                 <span className="text-neutral-40 font-roboto text-base font-semibold">
-                  {product?.id}
+                  {data?.id}
                 </span>
 
                 <div className="flex flex-col gap-2">
                   <span className="text-neutral-80 font-roboto text-2xl font-semibold">
-                    {product?.data.name}
+                    {data?.nome}
                   </span>
 
                   <div className="flex gap-2">
-                    {product?.categories.map(category => (
+                    {data?.categorias.map(category => (
                       <CategoryTag
                         key={category.id}
-                        id={category.id}
-                        label={category.name}
+                        id={String(category.id)}
+                        label={category.nome}
                       />
                     ))}
                   </div>
@@ -128,13 +127,13 @@ const ProductDetail = () => {
 
                 <div className="flex items-center gap-1">
                   <span className="text-neutral-40 font-roboto text-xs font-medium">
-                    {product?.data.rating},0
+                    4,0
                   </span>
 
-                  <RatingStarsCard rating={product?.data.rating || 0} />
+                  <RatingStarsCard rating={4} />
 
                   <span className="text-neutral-40 font-roboto text-xs font-medium">
-                    ({formatRateNumber(product?.data.rateAmmount || 0)})
+                    ({formatRateNumber(data?.views || 0)})
                   </span>
                 </div>
 
@@ -144,12 +143,12 @@ const ProductDetail = () => {
                   </span>
 
                   <span className="text-neutral-60 font-roboto text-base font-normal">
-                    {product?.data.description}
+                    {data?.descricao}
                   </span>
                 </div>
 
                 <span className="text-neutral-80 font-roboto text-2xl font-semibold">
-                  {formatCurrency(product?.data.price || 0)}
+                  {formatCurrency(data?.valor || 0)}
                 </span>
               </div>
             </div>
@@ -165,7 +164,7 @@ const ProductDetail = () => {
 
               <div
                 dangerouslySetInnerHTML={{
-                  __html: product?.data.details || '',
+                  __html: data?.detalhes || '',
                 }}
               />
             </div>
@@ -183,8 +182,8 @@ const ProductDetail = () => {
                 </span>
               </div>
 
-              <div className="custom-scrollbar flex gap-5 overflow-x-auto py-3">
-                {product?.data.similarProducts.map((similarProduct, index) => (
+              {/* <div className="custom-scrollbar flex gap-5 overflow-x-auto py-3">
+                {data.similarProducts.map((similarProduct, index) => (
                   <div key={similarProduct.id + index} className="flex">
                     <ProductCard
                       id={similarProduct.id}
@@ -197,7 +196,7 @@ const ProductDetail = () => {
                     />
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -206,9 +205,9 @@ const ProductDetail = () => {
       </div>
 
       <ImageModal
-        images={product?.data.images || []}
+        images={data?.imagens || []}
         isOpen={imageModalOpen}
-        toyName={product?.data.name || ''}
+        toyName={data?.nome || ''}
         onBackdropPress={() => setImageModalOpen(false)}
       />
     </>
