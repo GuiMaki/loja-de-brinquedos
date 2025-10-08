@@ -188,8 +188,7 @@ const ProductDetail = () => {
                   <div key={similarProduct.id + index} className="flex">
                     <ProductCard
                       id={similarProduct.id}
-                      image={similarProduct.image}
-                      imgWidth={240}
+                      image={null}
                       name={similarProduct.name}
                       price={similarProduct.price}
                       rateAmmount={similarProduct.rateAmmount}

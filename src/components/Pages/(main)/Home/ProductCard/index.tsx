@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import { DefaultImg } from '@/../public/Images';
 import { Imagen } from '@/interface/products';
 import { formatCurrency, formatRateNumber } from '@/utils/format';
 
 import RatingStarsCard from './RatingStarCard';
 
 type ProductCardProps = {
-  image: Imagen[];
+  image: Imagen[] | null;
   name: string;
   rating: number;
   rateAmmount: number;
@@ -34,7 +35,7 @@ const ProductCard = ({
       <Image
         alt="ProductImage"
         height={240}
-        src={image[0].caminho}
+        src={image ? image[0].caminho : DefaultImg}
         style={{ width: 240, height: 240, objectFit: 'contain' }}
         width={240}
       />
