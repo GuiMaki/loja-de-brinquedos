@@ -101,7 +101,9 @@ const Products = () => {
           </div>
 
           {isFetching ? (
-            <Loader color={colors.primary[100]} size={20} />
+            <div className="w-full justify-center">
+              <Loader color={colors.primary[100]} size={20} />
+            </div>
           ) : data && data.length > 0 ? (
             <div className="flex flex-wrap gap-12">
               {data.map(product => (

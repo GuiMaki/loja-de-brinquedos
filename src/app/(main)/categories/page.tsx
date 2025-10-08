@@ -34,7 +34,9 @@ const Categories = () => {
         </div>
 
         {isFetching ? (
-          <Loader color={colors.primary[100]} size={20} />
+          <div className="w-full justify-center">
+            <Loader color={colors.primary[100]} size={20} />
+          </div>
         ) : data && data.length > 0 ? (
           <div className="grid grid-cols-3 gap-12">
             {data.map(category => (
