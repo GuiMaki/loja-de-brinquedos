@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { DefaultImg } from '@/../public/Images';
 import Icon from '@/components/UI/Icon';
 import colors from '@/global/colors';
 import { formatAmmountNumber } from '@/utils/format';
 
 type CategoryCardProps = {
-  image: typeof DefaultImg;
+  image: string;
   name: string;
   description: string;
   productAmmount: number;

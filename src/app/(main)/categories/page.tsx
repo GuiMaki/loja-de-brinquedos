@@ -2,14 +2,18 @@
 
 import { useState } from 'react';
 
-import { CategoriesData } from '@/assets/Data/Categories';
 import CategoryCard from '@/components/Pages/(main)/Categories/CategoryCard';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
+import Loader from '@/components/UI/Loader';
 import SearchBar from '@/components/UI/SearchBar';
+import colors from '@/global/colors';
+import { useGetCategories } from '@/services/api/categories';
 
 const Categories = () => {
   const [search, setSearch] = useState('');
+
+  const { data, isFetching } = useGetCategories(search);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -28,18 +32,26 @@ const Categories = () => {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-12">
-          {CategoriesData.map(category => (
-            <CategoryCard
-              key={category.id}
-              description={category.description}
-              id={category.id}
-              image={category.image}
-              name={category.name}
-              productAmmount={category.productAmmount}
-            />
-          ))}
-        </div>
+        {isFetching ? (
+          <Loader color={colors.primary[100]} size={20} />
+        ) : data && data.length > 0 ? (
+          <div className="grid grid-cols-3 gap-12">
+            {data.map(category => (
+              <CategoryCard
+                key={category.id}
+                description={category.descricao}
+                id={String(category.id)}
+                image={category.imagem}
+                name={category.nome}
+                productAmmount={10}
+              />
+            ))}
+          </div>
+        ) : (
+          <span className="text-neutral-60 text-center font-lexend text-2xl font-medium">
+            Nenhuma categoria encontrada
+          </span>
+        )}
       </div>
 
       <Footer />
