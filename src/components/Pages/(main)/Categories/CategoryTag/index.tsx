@@ -21,7 +21,12 @@ const CategoryTag = ({ label, id, disabled = false }: CategoryTagProps) => {
         backgroundColor: hover ? colors.primary[100] : 'transparent',
         cursor: disabled ? 'default' : 'pointer',
       }}
-      onClick={() => !disabled && router.push(`/categories/products/${id}`)}
+      onClick={() =>
+        !disabled &&
+        router.push(
+          `/categories/products/${id}?category=${encodeURIComponent(label)}`,
+        )
+      }
       onMouseEnter={() => !disabled && setHover(true)}
       onMouseLeave={() => !disabled && setHover(false)}
     >

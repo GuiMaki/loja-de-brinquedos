@@ -14,7 +14,12 @@ const PersonCard = ({ RA, image, name }: PersonCardProps) => {
       <Image
         alt="image"
         src={image}
-        style={{ width: '100%', objectFit: 'contain', borderRadius: 9999 }}
+        style={{
+          width: '100%',
+          objectFit: 'cover',
+          borderRadius: 9999,
+          aspectRatio: 1,
+        }}
       />
 
       <div className="flex flex-col items-center justify-center gap-2">

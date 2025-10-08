@@ -3,19 +3,20 @@
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 
-import { ProductsDetails } from '@/assets/Data/ProductsDetails';
 import ViewField from '@/components/Pages/(main)/Admin/ViewField';
 import CategoryTag from '@/components/Pages/(main)/Categories/CategoryTag';
 import Header from '@/components/Pages/(main)/Header';
 import Icon from '@/components/UI/Icon';
+import Loader from '@/components/UI/Loader';
 import colors from '@/global/colors';
+import { useGetProductDetailById } from '@/services/api/products';
 import { formatCurrency } from '@/utils/format';
 
 const ProductDetails = () => {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
 
-  const product = ProductsDetails.find(product => product.id === id);
+  const { data, isFetching } = useGetProductDetailById(id);
 
   return (
     <div className="flex h-screen flex-col">
@@ -48,77 +49,91 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        <div className="flex h-full flex-grow gap-5 px-3 pt-3">
-          <div className="flex w-fit flex-col gap-3 p-3">
-            <span className="text-neutral-60 font-roboto text-xl font-normal">
-              Imagens
-            </span>
-
-            <div className="grid grid-cols-2 gap-3">
-              {product?.data.images.map((image, index) => (
-                <div key={index} className="w-fit rounded-xl bg-white p-3">
-                  <Image
-                    alt="ProductImage"
-                    className="object-contain"
-                    height={100}
-                    src={image}
-                    width={100}
-                  />
-                </div>
-              ))}
-            </div>
+        {isFetching ? (
+          <div className="flex h-full items-center justify-center">
+            <Loader color={colors.primary[100]} size={60} />
           </div>
-
-          <div className="flex flex-col gap-5 p-3" style={{ width: '64%' }}>
-            <div className="flex flex-col gap-1">
+        ) : (
+          <div className="flex h-full flex-grow gap-5 px-3 pt-3">
+            {/* Imagens */}
+            <div className="flex w-fit flex-col gap-3 p-3">
               <span className="text-neutral-60 font-roboto text-xl font-normal">
-                Categorias
+                Imagens
               </span>
 
-              <div className="flex gap-2">
-                {product?.categories.map(category => (
-                  <CategoryTag
-                    key={category.id}
-                    disabled
-                    id={category.id}
-                    label={category.name}
-                  />
-                ))}
+              {data?.imagens?.length ? (
+                <div className="grid grid-cols-2 gap-3">
+                  {data.imagens.map((image, index) => (
+                    <div key={index} className="w-fit rounded-xl bg-white p-3">
+                      <Image
+                        alt="ProductImage"
+                        className="object-contain"
+                        height={100}
+                        src={image.caminho}
+                        width={100}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <span className="text-neutral-40">
+                  Nenhuma imagem cadastrada
+                </span>
+              )}
+            </div>
+
+            {/* Detalhes */}
+            <div className="flex flex-col gap-5 p-3" style={{ width: '64%' }}>
+              <div className="flex flex-col gap-1">
+                <span className="text-neutral-60 font-roboto text-xl font-normal">
+                  Categorias
+                </span>
+
+                <div className="flex flex-wrap gap-2">
+                  {data?.categorias?.length ? (
+                    data.categorias.map(category => (
+                      <CategoryTag
+                        key={category.id}
+                        disabled
+                        id={String(category.id)}
+                        label={category.nome}
+                      />
+                    ))
+                  ) : (
+                    <span className="text-neutral-40">
+                      Nenhuma categoria vinculada
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-5">
+                <ViewField label="Nome do produto" value={data?.nome || ''} />
+
+                <ViewField
+                  label="Valor do produto"
+                  value={formatCurrency(data?.valor || 0)}
+                />
+
+                <ViewField label="Marca do produto" value={data?.marca || ''} />
+              </div>
+
+              <div className="flex h-[500px] flex-col gap-5">
+                <ViewField
+                  multiline
+                  label="Descrição do produto"
+                  value={data?.descricao || ''}
+                />
+
+                <ViewField
+                  multiline
+                  label="Detalhes do produto"
+                  value={data?.detalhes || ''}
+                />
               </div>
             </div>
-
-            <div className="flex gap-5">
-              <ViewField
-                label="Nome do produto"
-                value={product?.data.name || ''}
-              />
-
-              <ViewField
-                label="Valor do produto"
-                value={formatCurrency(product?.data.price || 0)}
-              />
-
-              <ViewField
-                label="Marca do produto"
-                value={product?.data.brand || ''}
-              />
-            </div>
-
-            <div className="flex h-[500px] flex-col gap-5">
-              <ViewField
-                multiline
-                label="Descrição do produto"
-                value={product?.data.description || ''}
-              />
-
-              <ViewField
-                multiline
-                label="Detalhes do produto"
-                value={product?.data.details || ''}
-              />
-            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

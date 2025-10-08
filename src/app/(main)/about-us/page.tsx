@@ -3,6 +3,7 @@
 import {
   DefaultImg,
   DoniImg,
+  KenzoImg,
   MakaImg,
   ViniImg,
   WillImg,
@@ -34,7 +35,7 @@ const AboutUs = () => {
 
             <PersonCard
               key="kenzo"
-              image={DefaultImg}
+              image={KenzoImg || DefaultImg}
               name="Guilherme Kenzo Manzato Sino"
               RA="1840482223003"
             />
