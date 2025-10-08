@@ -1,11 +1,15 @@
 'use client';
 
-import { HighlightedProductsData } from '@/assets/Data/HighlightedProducts';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
 import ProductCard from '@/components/Pages/(main)/Home/ProductCard';
+import Loader from '@/components/UI/Loader';
+import colors from '@/global/colors';
+import { useGetHighlightedProducts } from '@/services/api/products';
 
 const Home = () => {
+  const { data, isFetching } = useGetHighlightedProducts();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header page="Home" />
@@ -17,19 +21,30 @@ const Home = () => {
           </span>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-12">
-          {HighlightedProductsData.map(product => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              image={null}
-              name={product.name}
-              price={product.price}
-              rateAmmount={product.rateAmmount}
-              rating={product.rating}
-            />
-          ))}
-        </div>
+        {isFetching ? (
+          <div className="flex w-full justify-center">
+            <Loader color={colors.primary[100]} size={20} />
+          </div>
+        ) : data && data.length > 0 ? (
+          <div className="flex flex-wrap gap-12">
+            {data.map(product => (
+              <ProductCard
+                key={product.id}
+                id={String(product.id)}
+                image={product.imagens}
+                name={product.nome}
+                price={product.valor}
+                rateAmmount={product.views}
+                rating={4}
+                width={280}
+              />
+            ))}
+          </div>
+        ) : (
+          <span className="text-neutral-60 w-full text-center font-lexend text-2xl font-medium">
+            Nenhum brinquedo encontrado
+          </span>
+        )}
       </div>
 
       <Footer />

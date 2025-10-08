@@ -38,3 +38,16 @@ export const useGetProducts = () => {
     queryFn: getProducts,
   });
 };
+
+export const useGetHighlightedProducts = () => {
+  const getHighlightedProducts = async () => {
+    const { data } = await http.get<IProductsData[]>('brinquedos');
+
+    return data;
+  };
+
+  return useQuery({
+    queryKey: ['category_data'],
+    queryFn: getHighlightedProducts,
+  });
+};
