@@ -39,6 +39,8 @@ const Products = () => {
 
   const { data, isFetching } = useGetProductsByCategory(params);
 
+  console.log(id);
+
   const handleFilterClean = () => {
     setSelectedBrands([]);
     setSelectedPrice(null);
