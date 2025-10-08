@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 
 type Props = {
   justifyContent?: 'flex-end' | 'center';
@@ -10,9 +10,17 @@ const DefaultModalBackdrop = ({
   justifyContent = 'center',
   onPress,
 }: PropsWithChildren<Props>) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <div
-      className="absolute inset-0 flex items-center bg-black/25"
+      className="fixed inset-0 z-50 flex items-center bg-black/25"
       style={{ justifyContent }}
       onClick={onPress}
     >

@@ -1,23 +1,32 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import DefaultModalBackdrop from '@/components/UI/DefaultModal/DefaultModalBackdrop';
 import DefaultModalFooter from '@/components/UI/DefaultModal/DefaultModalFooter';
 import DefaultModalHeader from '@/components/UI/DefaultModal/DefaultModalHeader';
 import Input from '@/components/UI/Input';
-import { LoginSchema, LoginForm as ZLoginForm } from '@/validation/login';
+import {
+  LoginForm,
+  LoginSchema,
+  LoginForm as ZLoginForm,
+} from '@/validation/login';
 
 type LoginModalProps = {
   isOpen: boolean;
   onCancel: () => void;
+  handleInvalidData: () => void;
 };
 
-const LoginModal = ({ isOpen, onCancel }: LoginModalProps) => {
+const LoginModal = ({
+  isOpen,
+  onCancel,
+  handleInvalidData,
+}: LoginModalProps) => {
   const router = useRouter();
 
-  const { handleSubmit, control } = useForm<ZLoginForm>({
+  const { handleSubmit, control, reset } = useForm<ZLoginForm>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
@@ -25,12 +34,28 @@ const LoginModal = ({ isOpen, onCancel }: LoginModalProps) => {
     },
   });
 
+  useEffect(() => {
+    if (isOpen) {
+      reset({
+        email: '',
+        password: '',
+      });
+    }
+  }, [isOpen, reset]);
+
   if (!isOpen) {
     return null;
   }
 
-  const onSubmit = () => {
-    router.replace('/admin');
+  const onSubmit = (data: LoginForm) => {
+    if (
+      data.email === 'makiyamagui@gmail.com' &&
+      data.password === '12345678'
+    ) {
+      return router.replace('/admin');
+    }
+
+    return handleInvalidData();
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {

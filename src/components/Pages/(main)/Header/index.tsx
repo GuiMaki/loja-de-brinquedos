@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { HorizontalLogoImg } from '@/../public/Images';
+import { useDefaultModal } from '@/contexts/defaultModalContext';
 
 import LoginModal from '../Admin/LoginModal';
 
@@ -17,6 +18,7 @@ type HeaderProps = {
 
 const Header = ({ page, canGoBack }: HeaderProps) => {
   const router = useRouter();
+  const { openModal, closeModal } = useDefaultModal();
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -30,6 +32,18 @@ const Header = ({ page, canGoBack }: HeaderProps) => {
     }
 
     return router.replace(path);
+  };
+
+  const handleSubmit = () => {
+    setIsLoginModalOpen(false);
+
+    openModal({
+      type: 'alert',
+      title: 'Dados inválidos!',
+      message: 'Verifique os dados e tente novamente',
+      confirmText: 'Fechat',
+      onConfirm: closeModal,
+    });
   };
 
   return (
@@ -77,6 +91,7 @@ const Header = ({ page, canGoBack }: HeaderProps) => {
       </div>
 
       <LoginModal
+        handleInvalidData={handleSubmit}
         isOpen={isLoginModalOpen}
         onCancel={() => setIsLoginModalOpen(false)}
       />
