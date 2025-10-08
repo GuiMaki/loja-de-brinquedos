@@ -68,7 +68,7 @@ const Home = () => {
             />
           </div>
 
-          <div className="grid grid-cols-5 gap-12">
+          <div className="flex flex-wrap gap-12">
             {HighlightedProductsData.map(product => (
               <ProductCard
                 key={product.id}

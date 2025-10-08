@@ -24,15 +24,13 @@ const ProductCard = ({
   rateAmmount,
   rating,
   id,
-  width,
   imgWidth,
 }: ProductCardProps) => {
   const router = useRouter();
 
   return (
     <div
-      className="flex h-fit cursor-pointer flex-col gap-3 rounded-xl bg-white p-5 hover:opacity-60"
-      style={{ width: width && width }}
+      className="flex h-fit w-[280px] cursor-pointer flex-col gap-3 overflow-hidden rounded-xl bg-white p-5 hover:opacity-60"
       onClick={() => router.push(`/categories/products/productsDetail/${id}`)}
     >
       <Image
