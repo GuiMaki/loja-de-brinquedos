@@ -3,12 +3,12 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { ProductsDetails } from '@/assets/Data/ProductsDetails';
 import ListHeader from '@/components/Pages/(main)/Admin/ListHeader';
 import ProductListItem from '@/components/Pages/(main)/Admin/ProductListItem';
 import Header from '@/components/Pages/(main)/Header';
 import Icon from '@/components/UI/Icon';
 import colors from '@/global/colors';
+import { useGetProducts } from '@/services/api/products';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -16,12 +16,14 @@ const Admin = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(ProductsDetails.length / ITEMS_PER_PAGE);
+  const { data } = useGetProducts();
+
+  const totalPages = data ? Math.ceil(data.length / ITEMS_PER_PAGE) : 0;
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
 
-  const currentProducts = ProductsDetails.slice(startIndex, endIndex);
+  const currentProducts = data?.slice(startIndex, endIndex);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -63,19 +65,19 @@ const Admin = () => {
           <ListHeader />
 
           <div className="flex flex-col gap-4">
-            {currentProducts.map(product => {
-              const categoryNames = product.categories.map(
-                category => category.name,
+            {currentProducts?.map(product => {
+              const categoryNames = product.categorias.map(
+                category => category.nome,
               );
 
               return (
                 <ProductListItem
                   key={product.id}
                   categories={categoryNames}
-                  description={product.data.description}
-                  id={product.id}
-                  name={product.data.name}
-                  price={product.data.price}
+                  description={product.descricao}
+                  id={String(product.id)}
+                  name={product.nome}
+                  price={product.valor}
                 />
               );
             })}

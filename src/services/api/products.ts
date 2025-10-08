@@ -25,3 +25,16 @@ export const useGetProductsByCategory = (params: ProductParams) => {
     queryFn: getProductsByCategory,
   });
 };
+
+export const useGetProducts = () => {
+  const getProducts = async () => {
+    const { data } = await http.get<IProductsData[]>('brinquedos');
+
+    return data;
+  };
+
+  return useQuery({
+    queryKey: ['category_data'],
+    queryFn: getProducts,
+  });
+};
