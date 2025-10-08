@@ -11,17 +11,20 @@ export type ProductParams = {
   maxValor?: number;
 };
 
-export const useGetProductsByCategory = (params: ProductParams) => {
+export const useGetProductsByCategory = (id: string, params: ProductParams) => {
   const getProductsByCategory = async () => {
-    const { data } = await http.get<IProductsData[]>('brinquedos/search', {
-      params,
-    });
+    const { data } = await http.get<IProductsData[]>(
+      `brinquedos/categoria/${id}`,
+      {
+        params,
+      },
+    );
 
     return data;
   };
 
   return useQuery({
-    queryKey: ['products_by_category', params],
+    queryKey: ['products_by_category', id, params],
     queryFn: getProductsByCategory,
   });
 };

@@ -26,7 +26,11 @@ const CategoryCard = ({
   return (
     <div
       className="flex cursor-pointer gap-3 rounded-xl bg-white p-5 hover:opacity-60"
-      onClick={() => router.push(`categories/products/${id}`)}
+      onClick={() =>
+        router.push(
+          `/categories/products/${id}?category=${encodeURIComponent(name)}`,
+        )
+      }
     >
       <Image
         alt={String(image)}

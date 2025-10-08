@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 import Footer from '@/components/Pages/(main)/Footer';
@@ -19,7 +19,9 @@ import {
 import { formatRange } from '@/utils/price';
 
 const Products = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string; category: string }>();
+  const searchParams = useSearchParams();
+  const category = searchParams.get('category');
   const router = useRouter();
   const [search, setSearch] = useState('');
 
@@ -36,9 +38,7 @@ const Products = () => {
     maxValor: priceRange.max,
   };
 
-  const { data, isFetching } = useGetProductsByCategory(params);
-
-  console.log(id);
+  const { data, isFetching } = useGetProductsByCategory(id, params);
 
   const handleFilterClean = () => {
     setSelectedBrands([]);
@@ -61,7 +61,7 @@ const Products = () => {
             </div>
 
             <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
-              Categoria
+              Categoria - {category}
             </span>
           </div>
 
