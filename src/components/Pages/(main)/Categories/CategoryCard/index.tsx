@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import { DefaultImg } from '@/../public/Images';
 import Icon from '@/components/UI/Icon';
 import colors from '@/global/colors';
 import { formatAmmountNumber } from '@/utils/format';
 
 type CategoryCardProps = {
-  image: string;
+  image: string | typeof DefaultImg;
   name: string;
   description: string;
   productAmmount: number;
@@ -28,9 +29,11 @@ const CategoryCard = ({
       onClick={() => router.push(`categories/products/${id}`)}
     >
       <Image
-        alt="CategoryImage"
+        alt={String(image)}
+        height={228}
         src={image}
-        style={{ width: '40%', objectFit: 'contain' }}
+        style={{ objectFit: 'contain' }}
+        width={228}
       />
 
       <div className="flex flex-col gap-2">

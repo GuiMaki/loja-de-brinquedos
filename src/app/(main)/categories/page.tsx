@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { DefaultImg } from '@/../public/Images';
 import CategoryCard from '@/components/Pages/(main)/Categories/CategoryCard';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
@@ -41,7 +42,7 @@ const Categories = () => {
                 key={category.id}
                 description={category.descricao}
                 id={String(category.id)}
-                image={category.imagem}
+                image={category.imagem || DefaultImg}
                 name={category.nome}
                 productAmmount={10}
               />

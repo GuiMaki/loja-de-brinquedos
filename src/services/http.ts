@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseURL = 'http://loja-brinquedos.onrender.com/';
+export const baseURL = 'https://loja-brinquedos.onrender.com/';
 
 const http = axios.create({
   baseURL: `${baseURL}api/`,

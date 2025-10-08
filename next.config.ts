@@ -26,6 +26,17 @@ const nextConfig: NextConfig = {
     return config;
   },
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'loja-brinquedos.onrender.com',
+        port: '',
+        pathname: '/uploads/**',
+      },
+    ],
+  },
+
   // Add Turbopack configuration
   turbopack: {
     rules: {
