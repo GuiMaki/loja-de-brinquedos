@@ -1,13 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { http } from '../http';
+import { ICategorie } from '@/interface/categories';
 
-export type ICategorie = {
-  id: number;
-  nome: string;
-  descricao: string;
-  imagem: string;
-};
+import { http } from '../http';
 
 export const useGetCategories = (nome: string) => {
   const getCategories = async () => {

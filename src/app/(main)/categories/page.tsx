@@ -44,7 +44,7 @@ const Categories = () => {
                 id={String(category.id)}
                 image={category.imagem || DefaultImg}
                 name={category.nome}
-                productAmmount={10}
+                productAmmount={category.quantidadeBrinquedos}
               />
             ))}
           </div>

@@ -32,7 +32,7 @@ const CategoryCard = ({
         alt={String(image)}
         height={228}
         src={image}
-        style={{ objectFit: 'contain' }}
+        style={{ width: 228, height: 228, objectFit: 'contain' }}
         width={228}
       />
 

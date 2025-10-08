@@ -3,7 +3,6 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { ProductsOfCatregoryData } from '@/assets/Data/ProductsOfCategory';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
 import BrandSelector from '@/components/Pages/(main)/Home/FilterBar/Brands';
@@ -11,8 +10,14 @@ import PriceRangeSelector from '@/components/Pages/(main)/Home/FilterBar/Price';
 import RatingSelector from '@/components/Pages/(main)/Home/FilterBar/Rating';
 import ProductCard from '@/components/Pages/(main)/Home/ProductCard';
 import Icon from '@/components/UI/Icon';
+import Loader from '@/components/UI/Loader';
 import SearchBar from '@/components/UI/SearchBar';
 import colors from '@/global/colors';
+import {
+  ProductParams,
+  useGetProductsByCategory,
+} from '@/services/api/products';
+import { formatRange } from '@/utils/price';
 
 const Products = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,15 +28,22 @@ const Products = () => {
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
+  const priceRange = formatRange(selectedPrice ?? undefined);
+
+  const params: ProductParams = {
+    nome: search,
+    marcas: selectedBrands.join(','),
+    minValor: priceRange.min,
+    maxValor: priceRange.max,
+  };
+
+  const { data, isFetching } = useGetProductsByCategory(params);
+
   const handleFilterClean = () => {
     setSelectedBrands([]);
     setSelectedPrice(null);
     setSelectedRating(null);
   };
-
-  const category = ProductsOfCatregoryData.find(cat => cat.category.id === id);
-
-  const products = category?.category.products || [];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -48,7 +60,7 @@ const Products = () => {
             </div>
 
             <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
-              {category?.category.name}
+              Categoria
             </span>
           </div>
 
@@ -86,20 +98,28 @@ const Products = () => {
             />
           </div>
 
-          <div className="flex flex-wrap gap-12">
-            {products.map(product => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                image={product.image}
-                name={product.name}
-                price={product.price}
-                rateAmmount={product.rateAmmount}
-                rating={product.rating}
-                width={280}
-              />
-            ))}
-          </div>
+          {isFetching ? (
+            <Loader color={colors.primary[100]} size={20} />
+          ) : data && data.length > 0 ? (
+            <div className="flex flex-wrap gap-12">
+              {data.map(product => (
+                <ProductCard
+                  key={product.id}
+                  id={String(product.id)}
+                  image={product.imagens}
+                  name={product.nome}
+                  price={product.valor}
+                  rateAmmount={product.views}
+                  rating={4}
+                  width={280}
+                />
+              ))}
+            </div>
+          ) : (
+            <span className="text-neutral-60 w-full text-center font-lexend text-2xl font-medium">
+              Nenhum brinquedo encontrado
+            </span>
+          )}
         </div>
       </div>
 

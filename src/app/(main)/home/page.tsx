@@ -73,7 +73,7 @@ const Home = () => {
               <ProductCard
                 key={product.id}
                 id={product.id}
-                image={product.image}
+                image="https://res.cloudinary.com/ditriglfr/image/upload/v1759907012/cr6a8zmxw1cixin5mbjh.jpg"
                 name={product.name}
                 price={product.price}
                 rateAmmount={product.rateAmmount}

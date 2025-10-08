@@ -1,20 +1,19 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { DefaultImg } from '@/../public/Images';
+import { Imagen } from '@/interface/products';
 import { formatCurrency, formatRateNumber } from '@/utils/format';
 
 import RatingStarsCard from './RatingStarCard';
 
 type ProductCardProps = {
-  image: typeof DefaultImg;
+  image: Imagen[];
   name: string;
   rating: number;
   rateAmmount: number;
   price: number;
   id: string;
   width?: number;
-  imgWidth?: number;
 };
 
 const ProductCard = ({
@@ -24,7 +23,6 @@ const ProductCard = ({
   rateAmmount,
   rating,
   id,
-  imgWidth,
 }: ProductCardProps) => {
   const router = useRouter();
 
@@ -35,8 +33,10 @@ const ProductCard = ({
     >
       <Image
         alt="ProductImage"
-        src={image}
-        style={{ width: imgWidth ? imgWidth : '100%', objectFit: 'contain' }}
+        height={240}
+        src={image[0].caminho}
+        style={{ width: 240, height: 240, objectFit: 'contain' }}
+        width={240}
       />
 
       <span className="text-secondary-100 truncate font-lexend text-xl font-semibold">
