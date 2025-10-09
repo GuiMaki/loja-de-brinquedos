@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { IProductDetailResponse, IProductsData } from '@/interface/products';
 
@@ -65,5 +65,20 @@ export const useGetProductDetailById = (id: string) => {
   return useQuery({
     queryKey: ['product_details', id],
     queryFn: getProductDetailById,
+  });
+};
+
+export const useDeleteProduct = () => {
+  const queryClient = useQueryClient();
+
+  const deleteProduct = async (id: string) => {
+    await http.delete(`brinquedos/${id}`);
+  };
+
+  return useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products_data'] });
+    },
   });
 };

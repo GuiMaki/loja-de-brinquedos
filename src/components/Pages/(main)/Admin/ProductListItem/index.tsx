@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import Icon from '@/components/UI/Icon';
 import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
+import { useDeleteProduct } from '@/services/api/products';
 import { formatCurrency } from '@/utils/format';
 
 type ProductListItemProps = {
@@ -23,6 +24,8 @@ const ProductListItem = ({
   const router = useRouter();
   const { openModal, closeModal } = useDefaultModal();
 
+  const { mutateAsync: deleteProduct } = useDeleteProduct();
+
   const joinedCategories = categories.join(', ');
 
   const handleDelete = () => {
@@ -34,7 +37,20 @@ const ProductListItem = ({
       confirmText: 'Excluir',
       cancelText: 'Cancelar',
       onCancel: closeModal,
-      onConfirm: () => console.log('Produto excluido'),
+      onConfirm: async () => {
+        try {
+          await deleteProduct(id);
+        } catch {
+          openModal({
+            type: 'warning',
+            title: 'Erro!',
+            message:
+              'Ocorreu um erro ao excluir o produto, tente novamente mais tarde',
+            confirmText: 'Fechar',
+            onConfirm: closeModal,
+          });
+        }
+      },
       successMessage: 'Produto excluído com sucesso',
     });
   };
