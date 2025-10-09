@@ -130,3 +130,42 @@ export const useEditProduct = () => {
     },
   });
 };
+
+export const useDeleteProductsImage = () => {
+  const queryClient = useQueryClient();
+
+  const deleteProductsImage = async (id: string) => {
+    await http.delete(`brinquedos/${id}/imagens`);
+  };
+
+  return useMutation({
+    mutationFn: deleteProductsImage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['product_details'] });
+    },
+  });
+};
+
+export type ICreateImage = {
+  id: string;
+  arquivos: File[];
+};
+
+export const useCreateProductImage = () => {
+  const queryClient = useQueryClient();
+
+  const createProductImage = async ({ id, arquivos }: ICreateImage) => {
+    const formData = new FormData();
+
+    arquivos.forEach(file => formData.append('arquivos', file));
+
+    await http.post(`brinquedos/${id}/imagens`, formData);
+  };
+
+  return useMutation({
+    mutationFn: createProductImage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['product_details'] });
+    },
+  });
+};

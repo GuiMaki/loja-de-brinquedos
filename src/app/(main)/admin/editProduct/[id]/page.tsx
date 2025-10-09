@@ -14,6 +14,8 @@ import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
 import { Categoria } from '@/interface/products';
 import {
+  useCreateProductImage,
+  useDeleteProductsImage,
   useEditProduct,
   useGetProductDetailById,
 } from '@/services/api/products';
@@ -26,6 +28,8 @@ const EditProduct = () => {
 
   const { data } = useGetProductDetailById(id);
   const { mutateAsync: editProduct } = useEditProduct();
+  const { mutateAsync: deleteProductsImage } = useDeleteProductsImage();
+  const { mutateAsync: createProductImage } = useCreateProductImage();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [hasCategory, setHasCategory] = useState(true);
@@ -40,13 +44,15 @@ const EditProduct = () => {
 
   useEffect(() => {
     if (data) {
-      // const imagens =
-      //   data.brinquedo.imagens?.map(img =>
-      //     typeof img === 'string' ? img : img.caminho,
-      //   ) || [];
+      const imagens =
+        data.brinquedo.imagens?.map(img => ({
+          file: null as unknown as File,
+          preview: typeof img === 'string' ? img : img.caminho,
+        })) || [];
+
+      setImages(imagens);
 
       const categorias = data.brinquedo.categorias || [];
-
       setCategories(categorias);
 
       reset({
@@ -83,6 +89,14 @@ const EditProduct = () => {
       detalhes: data.details,
       categoriaIds: categoriesIds,
     });
+
+    await deleteProductsImage(id);
+
+    const newFiles = images.map(img => img.file).filter(Boolean) as File[];
+
+    if (newFiles.length > 0) {
+      await createProductImage({ id, arquivos: newFiles });
+    }
 
     openModal({
       type: 'success',
