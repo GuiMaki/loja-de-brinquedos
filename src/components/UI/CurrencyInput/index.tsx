@@ -44,7 +44,6 @@ const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
         control={control}
         name={name}
         render={({ field }) => {
-          // ✅ Inicializa o valor inicial de forma segura
           useEffect(() => {
             if (field.value && rawValue === '0') {
               const valueInCentavos = Math.round(field.value * 100);
@@ -61,7 +60,7 @@ const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
           };
 
           return (
-            <div className="flex w-full flex-col">
+            <div className="flex w-full flex-col gap-1">
               {label && (
                 <span className="text-neutral-60 font-roboto text-xl font-normal">
                   {label}

@@ -55,7 +55,6 @@ const ProductDetails = () => {
           </div>
         ) : (
           <div className="flex h-full flex-grow gap-5 px-3 pt-3">
-            {/* Imagens */}
             <div className="flex w-fit flex-col gap-3 p-3">
               <span className="text-neutral-60 font-roboto text-xl font-normal">
                 Imagens
@@ -64,10 +63,13 @@ const ProductDetails = () => {
               {data?.brinquedo.imagens?.length ? (
                 <div className="grid grid-cols-2 gap-3">
                   {data.brinquedo.imagens.map((image, index) => (
-                    <div key={index} className="w-fit rounded-xl bg-white p-3">
+                    <div
+                      key={index}
+                      className="flex h-[124px] w-[124px] rounded-xl bg-white p-3"
+                    >
                       <Image
                         alt="ProductImage"
-                        className="object-contain"
+                        className="object-cover"
                         height={100}
                         src={image.caminho}
                         width={100}
@@ -82,7 +84,6 @@ const ProductDetails = () => {
               )}
             </div>
 
-            {/* Detalhes */}
             <div className="flex flex-col gap-5 p-3" style={{ width: '64%' }}>
               <div className="flex flex-col gap-1">
                 <span className="text-neutral-60 font-roboto text-xl font-normal">

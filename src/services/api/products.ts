@@ -109,7 +109,6 @@ export const useEditProduct = () => {
   }: ProductForm) => {
     const formData = new FormData();
 
-    // Adicione os campos de texto
     formData.append('nome', nome);
     formData.append('valor', String(valor));
     formData.append('marca', marca);
@@ -164,6 +163,52 @@ export const useCreateProductImage = () => {
 
   return useMutation({
     mutationFn: createProductImage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['product_details'] });
+    },
+  });
+};
+
+export type ProductFormData = {
+  nome: string;
+  valor: string;
+  marca: string;
+  descricao: string;
+  detalhes: string;
+  categoriaIds: number[];
+  imagens: File[];
+};
+
+export const useCreateProduct = () => {
+  const queryClient = useQueryClient();
+
+  const createProduct = async ({
+    nome,
+    descricao,
+    detalhes,
+    marca,
+    valor,
+    categoriaIds,
+    imagens,
+  }: ProductFormData) => {
+    const formData = new FormData();
+
+    formData.append('codigo', '');
+    formData.append('nome', nome);
+    formData.append('valor', String(valor));
+    formData.append('marca', marca);
+    formData.append('descricao', descricao);
+    formData.append('detalhes', detalhes);
+    categoriaIds.forEach(id => {
+      formData.append('categoriaIds', String(id));
+    });
+    imagens.forEach(file => formData.append('imagens', file));
+
+    await http.post(`brinquedos`, formData);
+  };
+
+  return useMutation({
+    mutationFn: createProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product_details'] });
     },

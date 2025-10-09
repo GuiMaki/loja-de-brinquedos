@@ -12,19 +12,25 @@ import Icon from '@/components/UI/Icon';
 import Input from '@/components/UI/Input';
 import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
+import { Categoria } from '@/interface/products';
+import { useCreateProduct } from '@/services/api/products';
 import { ProductForm, ProductSchema } from '@/validation/product';
+
+type ImageItem = {
+  file: File;
+  preview: string;
+};
 
 const AddProduct = () => {
   const router = useRouter();
   const { openModal, closeModal } = useDefaultModal();
+  const { mutateAsync: createProduct } = useCreateProduct();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [hasCategory, setHasCategory] = useState(true);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<ImageItem[]>([]);
 
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
-    [],
-  );
+  const [categories, setCategories] = useState<Categoria[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -44,9 +50,30 @@ const AddProduct = () => {
     setValue('categories', categories);
   }, [categories, setValue]);
 
-  const onSubmit = (data: ProductForm) => {
-    console.log('Dados do produto:', data);
-    console.log('Imagens:', images);
+  const onSubmit = async (data: ProductForm) => {
+    if (images.length === 0) {
+      return openModal({
+        type: 'alert',
+        title: 'Nenhuma imagem anexada',
+        message:
+          'Faça o upload de pelo menos uma imagem do brinquedo para continuar!',
+        confirmText: 'Fechar',
+        onConfirm: closeModal,
+      });
+    }
+
+    const newFiles = images.map(img => img.file).filter(Boolean) as File[];
+    const categoriaIds = categories.map(c => Number(c.id));
+
+    await createProduct({
+      nome: data.name,
+      valor: String(data.price),
+      marca: data.brand,
+      descricao: data.description,
+      detalhes: data.details,
+      categoriaIds,
+      imagens: newFiles,
+    });
 
     openModal({
       type: 'success',
@@ -76,7 +103,10 @@ const AddProduct = () => {
       return;
     }
 
-    const newImages = Array.from(files).map(file => URL.createObjectURL(file));
+    const newImages = Array.from(files).map(file => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
 
     setImages(prev => [...prev, ...newImages]);
 
@@ -88,7 +118,7 @@ const AddProduct = () => {
   };
 
   const handleRemoveCategory = (categoryId: string) => {
-    setCategories(prev => prev.filter(c => c.id !== categoryId));
+    setCategories(prev => prev.filter(c => String(c.id) !== categoryId));
   };
 
   const handleSave = () => {
@@ -132,7 +162,7 @@ const AddProduct = () => {
               </div>
 
               <div
-                className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60"
+                className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60 disabled:opacity-50"
                 onClick={handleSave}
               >
                 <span className="font-roboto text-xl font-medium text-white">
@@ -156,7 +186,7 @@ const AddProduct = () => {
                       className="flex w-full items-center justify-between"
                     >
                       <span className="text-neutral-40 truncate font-roboto text-xl font-normal">
-                        {image}
+                        {image.file.name}
                       </span>
 
                       <div
@@ -211,11 +241,13 @@ const AddProduct = () => {
                       key={category.id}
                       className="bg-neutral-20 flex items-center gap-3 rounded-xl px-3 py-2"
                     >
-                      <span className="cursor-default">{category.name}</span>
+                      <span className="cursor-default">{category.nome}</span>
 
                       <div
                         className="cursor-pointer hover:opacity-60"
-                        onClick={() => handleRemoveCategory(category.id)}
+                        onClick={() =>
+                          handleRemoveCategory(String(category.id))
+                        }
                       >
                         <Icon
                           color={colors.neutral[80]}
