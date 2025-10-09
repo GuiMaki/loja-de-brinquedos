@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Brands } from '@/assets/Data/Brands';
 import Icon from '@/components/UI/Icon';
 import LabelCheckbox from '@/components/UI/LabelCheckbox';
+import { useGetBrands } from '@/services/api/brands';
 
 type BrandSelectorProps = {
   selectedBrands: string[];
@@ -19,6 +20,8 @@ const BrandSelector = ({
   const [expanded, setExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState('0px');
+
+  const { data: brandsData } = useGetBrands();
 
   const toggleBrand = (brandName: string) => {
     setSelectedBrands(
@@ -50,12 +53,12 @@ const BrandSelector = ({
         className="flex flex-col gap-2 overflow-hidden transition-[max-height] duration-200 ease-linear"
         style={{ maxHeight }}
       >
-        {Brands.map(brand => (
+        {brandsData?.map(brand => (
           <LabelCheckbox
-            key={brand.id}
-            label={brand.name}
-            selected={selectedBrands.includes(brand.name)}
-            onPress={() => toggleBrand(brand.name)}
+            key={brand}
+            label={brand}
+            selected={selectedBrands.includes(brand)}
+            onPress={() => toggleBrand(brand)}
           />
         ))}
       </div>
