@@ -180,6 +180,22 @@ const ProductDetail = () => {
               </div>
             </div>
 
+            <div className="flex flex-col gap-3 p-3">
+              <div className="flex items-center gap-3">
+                <Icon fill={colors.neutral[80]} name="DetailIcon" size={28} />
+
+                <span className="text-neutral-80 font-lexend text-2xl font-semibold">
+                  Detalhes do produto
+                </span>
+              </div>
+
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: data?.brinquedo.detalhes || '',
+                }}
+              />
+            </div>
+
             <div className="flex flex-col gap-3 p-3" style={{ width: 1264 }}>
               <div className="flex items-center gap-3">
                 <Icon
