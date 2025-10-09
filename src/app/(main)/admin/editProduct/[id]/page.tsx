@@ -48,13 +48,17 @@ const EditProduct = () => {
     if (data) {
       const loadImages = async () => {
         const files = await Promise.all(
-          (data.brinquedo.imagens || []).map(async (img: string | { caminho: string }, index: number) => {
-            const url = typeof img === 'string' ? img : img.caminho;
-            const response = await fetch(url);
-            const blob = await response.blob();
-            const file = new File([blob], `image-${index}.jpg`, { type: blob.type });
-            return { file, preview: url };
-          })
+          (data.brinquedo.imagens || []).map(
+            async (img: string | { caminho: string }, index: number) => {
+              const url = typeof img === 'string' ? img : img.caminho;
+              const response = await fetch(url);
+              const blob = await response.blob();
+              const file = new File([blob], `image-${index}.jpg`, {
+                type: blob.type,
+              });
+              return { file, preview: url };
+            }
+          ),
         );
 
         setImages(files);
@@ -76,7 +80,6 @@ const EditProduct = () => {
     }
   }, [data, reset]);
 
-
   const onSubmit = async (data: ProductForm) => {
     if (images.length === 0) {
       return openModal({
@@ -89,7 +92,7 @@ const EditProduct = () => {
       });
     }
 
-    const categoriesIds = categories.map(c => Number(c.id));
+    const categoriesIds = categories.map((c) => Number(c.id));
     setLoading(true);
 
     await editProduct({
@@ -104,7 +107,7 @@ const EditProduct = () => {
 
     await deleteProductsImage(id);
 
-    const allFiles = images.map(img => img.file).filter(Boolean) as File[];
+    const allFiles = images.map((img) => img.file).filter(Boolean) as File[];
 
     if (allFiles.length > 0) {
       await createProductImage({ id, arquivos: allFiles });
@@ -120,7 +123,6 @@ const EditProduct = () => {
       onConfirm: () => router.back(),
     });
   };
-
 
   const handleCancel = () => {
     openModal({
@@ -142,21 +144,21 @@ const EditProduct = () => {
       return;
     }
 
-    const newImages = Array.from(files).map(file => ({
+    const newImages = Array.from(files).map((file) => ({
       file,
       preview: URL.createObjectURL(file),
     }));
 
-    setImages(prev => [...prev, ...newImages]);
+    setImages((prev) => [...prev, ...newImages]);
     event.target.value = '';
   };
 
   const handleRemoveImage = (index: number) => {
-    setImages(prev => prev.filter((_, i) => i !== index));
+    setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleRemoveCategory = (categoryId: string) => {
-    setCategories(prev => prev.filter(c => String(c.id) !== categoryId));
+    setCategories((prev) => prev.filter((c) => String(c.id) !== categoryId));
   };
 
   const handleSave = () => {
@@ -201,7 +203,7 @@ const EditProduct = () => {
 
               <div
                 className="bg-primary-60 flex items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60"
-                style={{ cursor: loading ? 'default' : 'loading' }}
+                style={{ cursor: loading ? 'default' : 'pointer' }}
                 onClick={handleSave}
               >
                 {loading ? (
@@ -279,7 +281,7 @@ const EditProduct = () => {
                 </span>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  {categories.map(category => (
+                  {categories.map((category) => (
                     <div
                       key={category.id}
                       className="bg-neutral-20 flex items-center gap-3 rounded-xl px-3 py-2"
