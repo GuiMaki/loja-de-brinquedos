@@ -61,9 +61,9 @@ const ProductDetails = () => {
                 Imagens
               </span>
 
-              {data?.imagens?.length ? (
+              {data?.brinquedo.imagens?.length ? (
                 <div className="grid grid-cols-2 gap-3">
-                  {data.imagens.map((image, index) => (
+                  {data.brinquedo.imagens.map((image, index) => (
                     <div key={index} className="w-fit rounded-xl bg-white p-3">
                       <Image
                         alt="ProductImage"
@@ -90,8 +90,8 @@ const ProductDetails = () => {
                 </span>
 
                 <div className="flex flex-wrap gap-2">
-                  {data?.categorias?.length ? (
-                    data.categorias.map(category => (
+                  {data?.brinquedo.categorias?.length ? (
+                    data.brinquedo.categorias.map(category => (
                       <CategoryTag
                         key={category.id}
                         disabled
@@ -108,27 +108,33 @@ const ProductDetails = () => {
               </div>
 
               <div className="flex flex-wrap gap-5">
-                <ViewField label="Nome do produto" value={data?.nome || ''} />
+                <ViewField
+                  label="Nome do produto"
+                  value={data?.brinquedo.nome || ''}
+                />
 
                 <ViewField
                   label="Valor do produto"
-                  value={formatCurrency(data?.valor || 0)}
+                  value={formatCurrency(data?.brinquedo.valor || 0)}
                 />
 
-                <ViewField label="Marca do produto" value={data?.marca || ''} />
+                <ViewField
+                  label="Marca do produto"
+                  value={data?.brinquedo.marca || ''}
+                />
               </div>
 
               <div className="flex h-[500px] flex-col gap-5">
                 <ViewField
                   multiline
                   label="Descrição do produto"
-                  value={data?.descricao || ''}
+                  value={data?.brinquedo.descricao || ''}
                 />
 
                 <ViewField
                   multiline
                   label="Detalhes do produto"
-                  value={data?.detalhes || ''}
+                  value={data?.brinquedo.detalhes || ''}
                 />
               </div>
             </div>

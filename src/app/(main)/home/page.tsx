@@ -34,8 +34,8 @@ const Home = () => {
                 image={product.imagens}
                 name={product.nome}
                 price={product.valor}
-                rateAmmount={product.views}
-                rating={4}
+                rateAmmount={Math.floor(Math.random() * 10000) + 1}
+                rating={Math.floor(Math.random() * 5) + 1}
                 width={280}
               />
             ))}

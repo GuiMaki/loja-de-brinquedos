@@ -8,7 +8,7 @@ import { formatCurrency, formatRateNumber } from '@/utils/format';
 import RatingStarsCard from './RatingStarCard';
 
 type ProductCardProps = {
-  image: Imagen[] | null;
+  image: Imagen[] | null | string;
   name: string;
   rating: number;
   rateAmmount: number;
@@ -27,6 +27,18 @@ const ProductCard = ({
 }: ProductCardProps) => {
   const router = useRouter();
 
+  const productImage = () => {
+    if (typeof image === 'string') {
+      return image;
+    }
+
+    if (Array.isArray(image) && image.length > 0) {
+      return image[0].caminho;
+    }
+
+    return DefaultImg;
+  };
+
   return (
     <div
       className="flex h-fit w-[280px] cursor-pointer flex-col gap-3 overflow-hidden rounded-xl bg-white p-5 hover:opacity-60"
@@ -35,7 +47,7 @@ const ProductCard = ({
       <Image
         alt="ProductImage"
         height={240}
-        src={image ? image[0].caminho : DefaultImg}
+        src={productImage()}
         style={{ width: 240, height: 240, objectFit: 'contain' }}
         width={240}
       />

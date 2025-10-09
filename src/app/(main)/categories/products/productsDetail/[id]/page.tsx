@@ -9,6 +9,7 @@ import CategoryTag from '@/components/Pages/(main)/Categories/CategoryTag';
 import ImageModal from '@/components/Pages/(main)/Categories/ImageModal';
 import Footer from '@/components/Pages/(main)/Footer';
 import Header from '@/components/Pages/(main)/Header';
+import ProductCard from '@/components/Pages/(main)/Home/ProductCard';
 import RatingStarsCard from '@/components/Pages/(main)/Home/ProductCard/RatingStarCard';
 import Icon from '@/components/UI/Icon';
 import colors from '@/global/colors';
@@ -25,7 +26,9 @@ const ProductDetail = () => {
   const { data } = useGetProductDetailById(id);
 
   const images =
-    data && data.imagens.length > 4 ? data.imagens.slice(3) : data?.imagens;
+    data && data.brinquedo.imagens.length > 4
+      ? data.brinquedo.imagens.slice(3)
+      : data?.brinquedo.imagens;
 
   return (
     <>
@@ -51,7 +54,7 @@ const ProductDetail = () => {
               <div className="flex gap-3">
                 <div
                   className={`flex flex-col gap-4 ${
-                    data && data.imagens.length > 4
+                    data && data.brinquedo.imagens.length > 4
                       ? 'justify-between'
                       : 'justify-start'
                   }`}
@@ -62,11 +65,13 @@ const ProductDetail = () => {
                     return (
                       <div
                         key={index}
-                        className={`cursor-pointer rounded-xl p-3 transition-colors duration-300 hover:${isSelected ? 'opacity-100' : 'opacity-60'}`}
+                        className={`flex cursor-pointer rounded-xl p-3 transition-colors duration-300 hover:${isSelected ? 'opacity-100' : 'opacity-60'} items-center justify-center`}
                         style={{
                           backgroundColor: isSelected
                             ? colors.secondary[60]
                             : colors.primary[40],
+                          width: 80,
+                          height: 80,
                         }}
                         onClick={() => setSelectedIndex(index)}
                       >
@@ -81,24 +86,27 @@ const ProductDetail = () => {
                     );
                   })}
 
-                  {data && data.imagens.length > 4 && (
+                  {data && data.brinquedo.imagens.length > 4 && (
                     <div
                       className="bg-primary-40 flex aspect-square w-full cursor-pointer items-center justify-center rounded-xl hover:opacity-60"
                       onClick={() => setImageModalOpen(true)}
                     >
                       <span className="text-neutral-60 font-roboto text-2xl font-medium">
-                        + {data.imagens.length - 4}
+                        + {data.brinquedo.imagens.length - 4}
                       </span>
                     </div>
                   )}
                 </div>
 
-                <div className="h-fit w-fit rounded-xl bg-white p-3">
+                <div className="flex h-[512px] w-[512px] items-center justify-center rounded-xl bg-white p-3">
                   <Image
                     alt="ProductImage"
                     className="object-contain"
                     height={500}
-                    src={data?.imagens[selectedIndex].caminho || DefaultImg}
+                    src={
+                      data?.brinquedo.imagens[selectedIndex].caminho ||
+                      DefaultImg
+                    }
                     width={500}
                   />
                 </div>
@@ -106,16 +114,16 @@ const ProductDetail = () => {
 
               <div className="flex w-[600px] flex-col gap-5 py-5">
                 <span className="text-neutral-40 font-roboto text-base font-semibold">
-                  {data?.id}
+                  {data?.brinquedo.id}
                 </span>
 
                 <div className="flex flex-col gap-2">
                   <span className="text-neutral-80 font-roboto text-2xl font-semibold">
-                    {data?.nome}
+                    {data?.brinquedo.nome}
                   </span>
 
-                  <div className="flex gap-2">
-                    {data?.categorias.map(category => (
+                  <div className="flex flex-wrap gap-2">
+                    {data?.brinquedo.categorias.map(category => (
                       <CategoryTag
                         key={category.id}
                         id={String(category.id)}
@@ -130,10 +138,10 @@ const ProductDetail = () => {
                     4,0
                   </span>
 
-                  <RatingStarsCard rating={4} />
+                  <RatingStarsCard rating={Math.floor(Math.random() * 5) + 1} />
 
                   <span className="text-neutral-40 font-roboto text-xs font-medium">
-                    ({formatRateNumber(data?.views || 0)})
+                    ({formatRateNumber(Math.floor(Math.random() * 10000) + 1)})
                   </span>
                 </div>
 
@@ -143,12 +151,12 @@ const ProductDetail = () => {
                   </span>
 
                   <span className="text-neutral-60 font-roboto text-base font-normal">
-                    {data?.descricao}
+                    {data?.brinquedo.descricao}
                   </span>
                 </div>
 
                 <span className="text-neutral-80 font-roboto text-2xl font-semibold">
-                  {formatCurrency(data?.valor || 0)}
+                  {formatCurrency(data?.brinquedo.valor || 0)}
                 </span>
               </div>
             </div>
@@ -164,7 +172,7 @@ const ProductDetail = () => {
 
               <div
                 dangerouslySetInnerHTML={{
-                  __html: data?.detalhes || '',
+                  __html: data?.brinquedo.detalhes || '',
                 }}
               />
             </div>
@@ -182,21 +190,21 @@ const ProductDetail = () => {
                 </span>
               </div>
 
-              {/* <div className="custom-scrollbar flex gap-5 overflow-x-auto py-3">
-                {data.similarProducts.map((similarProduct, index) => (
+              <div className="custom-scrollbar flex gap-5 overflow-x-auto py-3">
+                {data?.relacionados.map((similarProduct, index) => (
                   <div key={similarProduct.id + index} className="flex">
                     <ProductCard
-                      id={similarProduct.id}
-                      image={null}
-                      name={similarProduct.name}
-                      price={similarProduct.price}
-                      rateAmmount={similarProduct.rateAmmount}
-                      rating={similarProduct.rating}
+                      id={String(similarProduct.id)}
+                      image={similarProduct.imagem}
+                      name={similarProduct.nome}
+                      price={similarProduct.valor}
+                      rateAmmount={Math.floor(Math.random() * 10000) + 1}
+                      rating={Math.floor(Math.random() * 5) + 1}
                       width={280}
                     />
                   </div>
                 ))}
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
@@ -205,9 +213,9 @@ const ProductDetail = () => {
       </div>
 
       <ImageModal
-        images={data?.imagens || []}
+        images={data?.brinquedo.imagens || []}
         isOpen={imageModalOpen}
-        toyName={data?.nome || ''}
+        toyName={data?.brinquedo.nome || ''}
         onBackdropPress={() => setImageModalOpen(false)}
       />
     </>

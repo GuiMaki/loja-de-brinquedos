@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { IProductsData } from '@/interface/products';
+import { IProductDetailResponse, IProductsData } from '@/interface/products';
 
 import { http } from '../http';
 
@@ -57,7 +57,7 @@ export const useGetHighlightedProducts = () => {
 
 export const useGetProductDetailById = (id: string) => {
   const getProductDetailById = async () => {
-    const { data } = await http.get<IProductsData>(`brinquedos/${id}`);
+    const { data } = await http.get<IProductDetailResponse>(`brinquedos/${id}`);
 
     return data;
   };
