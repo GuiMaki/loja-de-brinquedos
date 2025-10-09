@@ -10,6 +10,7 @@ import Header from '@/components/Pages/(main)/Header';
 import CurrencyInput from '@/components/UI/CurrencyInput';
 import Icon from '@/components/UI/Icon';
 import Input from '@/components/UI/Input';
+import Loader from '@/components/UI/Loader';
 import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
 import { Categoria } from '@/interface/products';
@@ -35,6 +36,7 @@ const EditProduct = () => {
   const [hasCategory, setHasCategory] = useState(true);
   const [images, setImages] = useState<{ file: File; preview: string }[]>([]);
   const [categories, setCategories] = useState<Categoria[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -79,6 +81,7 @@ const EditProduct = () => {
     }
 
     const categoriesIds = categories.map(c => Number(c.id));
+    setLoading(true);
 
     await editProduct({
       id,
@@ -97,6 +100,8 @@ const EditProduct = () => {
     if (newFiles.length > 0) {
       await createProductImage({ id, arquivos: newFiles });
     }
+
+    setLoading(false);
 
     openModal({
       type: 'success',
@@ -185,12 +190,17 @@ const EditProduct = () => {
               </div>
 
               <div
-                className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60"
+                className="bg-primary-60 flex items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60"
+                style={{ cursor: loading ? 'default' : 'loading' }}
                 onClick={handleSave}
               >
-                <span className="font-roboto text-xl font-medium text-white">
-                  Salvar
-                </span>
+                {loading ? (
+                  <Loader color={colors.neutral.white} size={12} />
+                ) : (
+                  <span className="font-roboto text-xl font-medium text-white">
+                    Salvar
+                  </span>
+                )}
               </div>
             </div>
           </div>

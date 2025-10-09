@@ -10,6 +10,7 @@ import Header from '@/components/Pages/(main)/Header';
 import CurrencyInput from '@/components/UI/CurrencyInput';
 import Icon from '@/components/UI/Icon';
 import Input from '@/components/UI/Input';
+import Loader from '@/components/UI/Loader';
 import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
 import { Categoria } from '@/interface/products';
@@ -29,6 +30,7 @@ const AddProduct = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [hasCategory, setHasCategory] = useState(true);
   const [images, setImages] = useState<ImageItem[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [categories, setCategories] = useState<Categoria[]>([]);
 
@@ -64,6 +66,7 @@ const AddProduct = () => {
 
     const newFiles = images.map(img => img.file).filter(Boolean) as File[];
     const categoriaIds = categories.map(c => Number(c.id));
+    setLoading(true);
 
     await createProduct({
       nome: data.name,
@@ -74,6 +77,8 @@ const AddProduct = () => {
       categoriaIds,
       imagens: newFiles,
     });
+
+    setLoading(false);
 
     openModal({
       type: 'success',
@@ -162,12 +167,17 @@ const AddProduct = () => {
               </div>
 
               <div
-                className="bg-primary-60 flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60 disabled:opacity-50"
+                className="bg-primary-60 flex items-center gap-3 rounded-xl px-4 py-2 hover:opacity-60"
+                style={{ cursor: loading ? 'default' : 'loading' }}
                 onClick={handleSave}
               >
-                <span className="font-roboto text-xl font-medium text-white">
-                  Salvar
-                </span>
+                {loading ? (
+                  <Loader color={colors.neutral.white} size={12} />
+                ) : (
+                  <span className="font-roboto text-xl font-medium text-white">
+                    Salvar
+                  </span>
+                )}
               </div>
             </div>
           </div>
