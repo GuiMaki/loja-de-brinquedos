@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { DefaultImg } from '@/../public/Images';
 import CategoryTag from '@/components/Pages/(main)/Categories/CategoryTag';
@@ -25,10 +25,28 @@ const ProductDetail = () => {
 
   const { data } = useGetProductDetailById(id);
 
+  const randomRating = useMemo(() => Math.floor(Math.random() * 5) + 1, [id]);
+  const randomRateAmount = useMemo(
+    () => Math.floor(Math.random() * 10000) + 1,
+    [id],
+  );
+
   const images =
     data && data.brinquedo.imagens.length > 4
       ? data.brinquedo.imagens.slice(3)
       : data?.brinquedo.imagens;
+
+  const relatedProducts = useMemo(() => {
+    if (!data?.relacionados) {
+      return [];
+    }
+
+    return data.relacionados.map(similarProduct => ({
+      ...similarProduct,
+      rating: Math.floor(Math.random() * 5) + 1,
+      rateAmount: Math.floor(Math.random() * 10000) + 1,
+    }));
+  }, [data?.relacionados]);
 
   return (
     <>
@@ -61,11 +79,12 @@ const ProductDetail = () => {
                 >
                   {images?.map((image, index) => {
                     const isSelected = selectedIndex === index;
-
                     return (
                       <div
                         key={index}
-                        className={`flex cursor-pointer rounded-xl p-3 transition-colors duration-300 hover:${isSelected ? 'opacity-100' : 'opacity-60'} items-center justify-center`}
+                        className={`flex cursor-pointer rounded-xl p-3 transition-colors duration-300 hover:${
+                          isSelected ? 'opacity-100' : 'opacity-60'
+                        } items-center justify-center`}
                         style={{
                           backgroundColor: isSelected
                             ? colors.secondary[60]
@@ -114,7 +133,7 @@ const ProductDetail = () => {
 
               <div className="flex w-[600px] flex-col gap-5 py-5">
                 <span className="text-neutral-40 font-roboto text-base font-semibold">
-                  {data?.brinquedo.id}
+                  {data?.brinquedo.codigo}
                 </span>
 
                 <div className="flex flex-col gap-2">
@@ -135,13 +154,13 @@ const ProductDetail = () => {
 
                 <div className="flex items-center gap-1">
                   <span className="text-neutral-40 font-roboto text-xs font-medium">
-                    4,0
+                    {randomRating.toFixed(1)}
                   </span>
 
-                  <RatingStarsCard rating={Math.floor(Math.random() * 5) + 1} />
+                  <RatingStarsCard rating={randomRating} />
 
                   <span className="text-neutral-40 font-roboto text-xs font-medium">
-                    ({formatRateNumber(Math.floor(Math.random() * 10000) + 1)})
+                    ({formatRateNumber(randomRateAmount)})
                   </span>
                 </div>
 
@@ -161,22 +180,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 p-3">
-              <div className="flex items-center gap-3">
-                <Icon fill={colors.neutral[80]} name="DetailIcon" size={28} />
-
-                <span className="text-neutral-80 font-lexend text-2xl font-semibold">
-                  Detalhes do produto
-                </span>
-              </div>
-
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: data?.brinquedo.detalhes || '',
-                }}
-              />
-            </div>
-
             <div className="flex flex-col gap-3 p-3" style={{ width: 1264 }}>
               <div className="flex items-center gap-3">
                 <Icon
@@ -191,15 +194,15 @@ const ProductDetail = () => {
               </div>
 
               <div className="custom-scrollbar flex gap-5 overflow-x-auto py-3">
-                {data?.relacionados.map((similarProduct, index) => (
-                  <div key={similarProduct.id + index} className="flex">
+                {relatedProducts.map(similarProduct => (
+                  <div key={similarProduct.id} className="flex">
                     <ProductCard
                       id={String(similarProduct.id)}
                       image={similarProduct.imagem}
                       name={similarProduct.nome}
                       price={similarProduct.valor}
-                      rateAmmount={Math.floor(Math.random() * 10000) + 1}
-                      rating={Math.floor(Math.random() * 5) + 1}
+                      rateAmmount={similarProduct.rateAmount}
+                      rating={similarProduct.rating}
                       width={280}
                     />
                   </div>

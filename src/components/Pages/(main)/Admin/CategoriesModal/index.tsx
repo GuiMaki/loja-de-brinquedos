@@ -2,18 +2,17 @@
 
 import React from 'react';
 
-import { CategoriesData } from '@/assets/Data/Categories';
 import DefaultModalBackdrop from '@/components/UI/DefaultModal/DefaultModalBackdrop';
 import DefaultModalFooter from '@/components/UI/DefaultModal/DefaultModalFooter';
 import DefaultModalHeader from '@/components/UI/DefaultModal/DefaultModalHeader';
 import LabelCheckbox from '@/components/UI/LabelCheckbox';
-
-export type Category = { id: string; name: string };
+import { Categoria } from '@/interface/products';
+import { useGetAllCategories } from '@/services/api/categories';
 
 type CategoryModalProps = {
   isOpen: boolean;
-  selectedCategories: Category[];
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+  selectedCategories: Categoria[];
+  setCategories: React.Dispatch<React.SetStateAction<Categoria[]>>;
   onCancel: () => void;
 };
 
@@ -23,13 +22,15 @@ const CategoriesModal = ({
   onCancel,
   isOpen,
 }: CategoryModalProps) => {
+  const { data } = useGetAllCategories();
+
   if (!isOpen) {
     return null;
   }
 
   const handleBackdropClick = (e: React.MouseEvent) => e.stopPropagation();
 
-  const handleToggleCategory = (category: Category) => {
+  const handleToggleCategory = (category: Categoria) => {
     setCategories(prev => {
       const exists = prev.some(c => c.id === category.id);
       if (exists) {
@@ -54,14 +55,14 @@ const CategoriesModal = ({
           </span>
 
           <div className="flex flex-col gap-2 px-3">
-            {CategoriesData.map(category => {
+            {data?.map(category => {
               const selected = selectedCategories.some(
                 c => c.id === category.id,
               );
               return (
                 <LabelCheckbox
                   key={category.id}
-                  label={category.name}
+                  label={category.nome}
                   selected={selected}
                   onPress={() => handleToggleCategory(category)}
                 />
@@ -71,9 +72,7 @@ const CategoriesModal = ({
         </div>
 
         <DefaultModalFooter
-          cancelText="Voltar"
           confirmText="Confirmar"
-          handleCancel={onCancel}
           handleConfirm={onCancel}
           type="custom"
         />

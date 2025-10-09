@@ -18,3 +18,16 @@ export const useGetCategories = (nome: string) => {
     queryFn: getCategories,
   });
 };
+
+export const useGetAllCategories = () => {
+  const getAllCategories = async () => {
+    const { data } = await http.get<ICategorie[]>('categorias');
+
+    return data;
+  };
+
+  return useQuery({
+    queryKey: ['category_list_data'],
+    queryFn: getAllCategories,
+  });
+};

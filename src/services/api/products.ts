@@ -44,7 +44,9 @@ export const useGetProducts = () => {
 
 export const useGetHighlightedProducts = () => {
   const getHighlightedProducts = async () => {
-    const { data } = await http.get<IProductsData[]>('brinquedos');
+    const { data } = await http.get<IProductsData[]>(
+      'brinquedos/mais-acessados',
+    );
 
     return data;
   };
@@ -77,6 +79,56 @@ export const useDeleteProduct = () => {
 
   return useMutation({
     mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products_data'] });
+    },
+  });
+};
+
+export type ProductForm = {
+  id: string;
+  nome: string;
+  valor: string;
+  marca: string;
+  descricao: string;
+  detalhes: string;
+  categoriaIds: string;
+};
+
+export const useEditProduct = () => {
+  const queryClient = useQueryClient();
+
+  const editProduct = async ({
+    nome,
+    descricao,
+    detalhes,
+    marca,
+    valor,
+    categoriaIds,
+    id,
+  }: ProductForm) => {
+    const formData = new FormData();
+
+    // Adicione os campos de texto
+    formData.append('nome', nome);
+    formData.append('valor', String(valor));
+    formData.append('marca', marca);
+    formData.append('descricao', descricao);
+    formData.append('detalhes', detalhes);
+
+    if (Array.isArray(categoriaIds)) {
+      formData.append('categoriaIds', categoriaIds.join(', '));
+    } else {
+      formData.append('categoriaIds', String(categoriaIds));
+    }
+
+    console.log([...formData.entries()]);
+
+    await http.put(`brinquedos/${id}`, formData);
+  };
+
+  return useMutation({
+    mutationFn: editProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products_data'] });
     },

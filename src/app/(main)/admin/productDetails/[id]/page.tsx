@@ -33,7 +33,7 @@ const ProductDetails = () => {
             </div>
 
             <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
-              Detalhes do produto - {id}
+              Detalhes do produto - {data?.brinquedo.codigo}
             </span>
           </div>
 

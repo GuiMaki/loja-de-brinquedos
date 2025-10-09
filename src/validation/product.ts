@@ -1,12 +1,14 @@
 import z from './zod';
 
 export const ProductSchema = z.object({
-  category: z
-    .object({
-      id: z.string(),
-      name: z.string(),
-    })
-    .array(),
+  categories: z.array(
+    z.object({
+      id: z.number(),
+      nome: z.string(),
+      descricao: z.string().optional(),
+      imagem: z.string().optional(),
+    }),
+  ),
   name: z.string().min(1),
   price: z.number().min(1),
   brand: z.string().min(1),

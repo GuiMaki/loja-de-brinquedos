@@ -5,7 +5,6 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ProductsDetails } from '@/assets/Data/ProductsDetails';
 import CategoriesModal from '@/components/Pages/(main)/Admin/CategoriesModal';
 import Header from '@/components/Pages/(main)/Header';
 import CurrencyInput from '@/components/UI/CurrencyInput';
@@ -13,6 +12,11 @@ import Icon from '@/components/UI/Icon';
 import Input from '@/components/UI/Input';
 import { useDefaultModal } from '@/contexts/defaultModalContext';
 import colors from '@/global/colors';
+import { Categoria } from '@/interface/products';
+import {
+  useEditProduct,
+  useGetProductDetailById,
+} from '@/services/api/products';
 import { ProductForm, ProductSchema } from '@/validation/product';
 
 const EditProduct = () => {
@@ -20,41 +24,69 @@ const EditProduct = () => {
   const { id } = useParams<{ id: string }>();
   const { openModal, closeModal } = useDefaultModal();
 
-  const product = ProductsDetails.find(product => product.id === id);
+  const { data } = useGetProductDetailById(id);
+  const { mutateAsync: editProduct } = useEditProduct();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [hasCategory, setHasCategory] = useState(true);
-  const [images, setImages] = useState<string[]>(
-    product?.data.images.map(img =>
-      typeof img === 'string' ? img : img.src,
-    ) || [],
-  );
-
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
-    product?.categories || [],
-  );
+  const [images, setImages] = useState<{ file: File; preview: string }[]>([]);
+  const [categories, setCategories] = useState<Categoria[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const { handleSubmit, control, setValue } = useForm<ProductForm>({
+  const { handleSubmit, control, reset } = useForm<ProductForm>({
     resolver: zodResolver(ProductSchema),
-    defaultValues: {
-      category: product?.categories,
-      name: product?.data.name,
-      price: product?.data.price,
-      brand: product?.data.brand,
-      description: product?.data.description,
-      details: product?.data.details,
-    },
   });
 
   useEffect(() => {
-    setValue('category', categories);
-  }, [categories, setValue]);
+    if (data) {
+      // const imagens =
+      //   data.brinquedo.imagens?.map(img =>
+      //     typeof img === 'string' ? img : img.caminho,
+      //   ) || [];
 
-  const onSubmit = (data: ProductForm) => {
+      const categorias = data.brinquedo.categorias || [];
+
+      setCategories(categorias);
+
+      reset({
+        categories: categorias,
+        name: data.brinquedo.nome,
+        price: data.brinquedo.valor,
+        brand: data.brinquedo.marca,
+        description: data.brinquedo.descricao,
+        details: data.brinquedo.detalhes,
+      });
+    }
+  }, [data, reset]);
+
+  const onSubmit = async (data: ProductForm) => {
     console.log('Dados do produto:', data);
-    console.log('Imagens:', images);
+    console.log('Imasync agens:', images);
+    if (images.length === 0) {
+      return openModal({
+        type: 'alert',
+        title: 'Nenhuma imagem anexada',
+        message:
+          'Faça o upload de pelo menos uma imagem do brinquedo para continuar!',
+        confirmText: 'Fechar',
+        onConfirm: closeModal,
+      });
+    }
+
+    const categoriesIds = data.categories.map(c => c.id).join(', ');
+
+    console.log('categorias:', categoriesIds, data.categories);
+
+    await editProduct({
+      id,
+      nome: data.name,
+      valor: String(data.price),
+      marca: data.brand,
+      descricao: data.description,
+      detalhes: data.details,
+      categoriaIds: categoriesIds,
+    });
 
     openModal({
       type: 'success',
@@ -85,10 +117,12 @@ const EditProduct = () => {
       return;
     }
 
-    const newImages = Array.from(files).map(file => URL.createObjectURL(file));
+    const newImages = Array.from(files).map(file => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
 
     setImages(prev => [...prev, ...newImages]);
-
     event.target.value = '';
   };
 
@@ -97,7 +131,7 @@ const EditProduct = () => {
   };
 
   const handleRemoveCategory = (categoryId: string) => {
-    setCategories(prev => prev.filter(c => c.id !== categoryId));
+    setCategories(prev => prev.filter(c => String(c.id) !== categoryId));
   };
 
   const handleSave = () => {
@@ -126,7 +160,7 @@ const EditProduct = () => {
               </div>
 
               <span className="text-neutral-80 flex font-lexend text-2xl font-medium">
-                Editar produto - {id}
+                Editar produto - {data?.brinquedo.codigo}
               </span>
             </div>
 
@@ -165,7 +199,7 @@ const EditProduct = () => {
                       className="flex w-full items-center justify-between"
                     >
                       <span className="text-neutral-40 truncate font-roboto text-xl font-normal">
-                        {image}
+                        {image.preview}
                       </span>
 
                       <div
@@ -220,11 +254,13 @@ const EditProduct = () => {
                       key={category.id}
                       className="bg-neutral-20 flex items-center gap-3 rounded-xl px-3 py-2"
                     >
-                      <span className="cursor-default">{category.name}</span>
+                      <span className="cursor-default">{category.nome}</span>
 
                       <div
                         className="cursor-pointer hover:opacity-60"
-                        onClick={() => handleRemoveCategory(category.id)}
+                        onClick={() =>
+                          handleRemoveCategory(String(category.id))
+                        }
                       >
                         <Icon
                           color={colors.neutral[80]}
