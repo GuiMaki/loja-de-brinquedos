@@ -210,7 +210,7 @@ export const useCreateProduct = () => {
   return useMutation({
     mutationFn: createProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['product_details'] });
+      queryClient.invalidateQueries({ queryKey: ['products_data'] });
     },
   });
 };
