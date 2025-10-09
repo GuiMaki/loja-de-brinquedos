@@ -45,81 +45,81 @@ const EditProduct = () => {
   });
 
   useEffect(() => {
-  if (data) {
-    const loadImages = async () => {
-      const files = await Promise.all(
-        (data.brinquedo.imagens || []).map(async (img: string | { caminho: string }, index: number) => {
-          const url = typeof img === 'string' ? img : img.caminho;
-          const response = await fetch(url);
-          const blob = await response.blob();
-          const file = new File([blob], `image-${index}.jpg`, { type: blob.type });
-          return { file, preview: url };
-        })
-      );
+    if (data) {
+      const loadImages = async () => {
+        const files = await Promise.all(
+          (data.brinquedo.imagens || []).map(async (img: string | { caminho: string }, index: number) => {
+            const url = typeof img === 'string' ? img : img.caminho;
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const file = new File([blob], `image-${index}.jpg`, { type: blob.type });
+            return { file, preview: url };
+          })
+        );
 
-      setImages(files);
+        setImages(files);
 
-      const categorias = data.brinquedo.categorias || [];
-      setCategories(categorias);
+        const categorias = data.brinquedo.categorias || [];
+        setCategories(categorias);
 
-      reset({
-        categories: categorias,
-        name: data.brinquedo.nome,
-        price: data.brinquedo.valor,
-        brand: data.brinquedo.marca,
-        description: data.brinquedo.descricao,
-        details: data.brinquedo.detalhes,
-      });
-    };
+        reset({
+          categories: categorias,
+          name: data.brinquedo.nome,
+          price: data.brinquedo.valor,
+          brand: data.brinquedo.marca,
+          description: data.brinquedo.descricao,
+          details: data.brinquedo.detalhes,
+        });
+      };
 
-    loadImages();
-  }
-}, [data, reset]);
+      loadImages();
+    }
+  }, [data, reset]);
 
 
   const onSubmit = async (data: ProductForm) => {
-  if (images.length === 0) {
-    return openModal({
-      type: 'alert',
-      title: 'Nenhuma imagem anexada',
-      message:
-        'Faça o upload de pelo menos uma imagem do brinquedo para continuar!',
-      confirmText: 'Fechar',
-      onConfirm: closeModal,
+    if (images.length === 0) {
+      return openModal({
+        type: 'alert',
+        title: 'Nenhuma imagem anexada',
+        message:
+          'Faça o upload de pelo menos uma imagem do brinquedo para continuar!',
+        confirmText: 'Fechar',
+        onConfirm: closeModal,
+      });
+    }
+
+    const categoriesIds = categories.map(c => Number(c.id));
+    setLoading(true);
+
+    await editProduct({
+      id,
+      nome: data.name,
+      valor: String(data.price),
+      marca: data.brand,
+      descricao: data.description,
+      detalhes: data.details,
+      categoriaIds: categoriesIds,
     });
-  }
 
-  const categoriesIds = categories.map(c => Number(c.id));
-  setLoading(true);
+    await deleteProductsImage(id);
 
-  await editProduct({
-    id,
-    nome: data.name,
-    valor: String(data.price),
-    marca: data.brand,
-    descricao: data.description,
-    detalhes: data.details,
-    categoriaIds: categoriesIds,
-  });
+    const allFiles = images.map(img => img.file).filter(Boolean) as File[];
 
-  await deleteProductsImage(id);
+    if (allFiles.length > 0) {
+      await createProductImage({ id, arquivos: allFiles });
+    }
 
-  const allFiles = images.map(img => img.file).filter(Boolean) as File[];
+    setLoading(false);
 
-  if (allFiles.length > 0) {
-    await createProductImage({ id, arquivos: allFiles });
-  }
-
-  setLoading(false);
-
-  openModal({
-    type: 'success',
-    title: 'Sucesso!',
-    message: 'Produto editado com sucesso!',
-    confirmText: 'Voltar',
-    onConfirm: () => router.back(),
-  });
-};
+    openModal({
+      type: 'success',
+      title: 'Sucesso!',
+      message: 'Produto editado com sucesso!',
+      confirmText: 'Voltar',
+      onConfirm: () => router.back(),
+    });
+  };
 
 
   const handleCancel = () => {
