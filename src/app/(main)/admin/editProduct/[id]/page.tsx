@@ -57,7 +57,7 @@ const EditProduct = () => {
                 type: blob.type,
               });
               return { file, preview: url };
-            }
+            },
           ),
         );
 
@@ -92,7 +92,7 @@ const EditProduct = () => {
       });
     }
 
-    const categoriesIds = categories.map((c) => Number(c.id));
+    const categoriesIds = categories.map(c => Number(c.id));
     setLoading(true);
 
     await editProduct({
@@ -107,7 +107,7 @@ const EditProduct = () => {
 
     await deleteProductsImage(id);
 
-    const allFiles = images.map((img) => img.file).filter(Boolean) as File[];
+    const allFiles = images.map(img => img.file).filter(Boolean) as File[];
 
     if (allFiles.length > 0) {
       await createProductImage({ id, arquivos: allFiles });
@@ -144,21 +144,21 @@ const EditProduct = () => {
       return;
     }
 
-    const newImages = Array.from(files).map((file) => ({
+    const newImages = Array.from(files).map(file => ({
       file,
       preview: URL.createObjectURL(file),
     }));
 
-    setImages((prev) => [...prev, ...newImages]);
+    setImages(prev => [...prev, ...newImages]);
     event.target.value = '';
   };
 
   const handleRemoveImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
+    setImages(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleRemoveCategory = (categoryId: string) => {
-    setCategories((prev) => prev.filter((c) => String(c.id) !== categoryId));
+    setCategories(prev => prev.filter((c) => String(c.id) !== categoryId));
   };
 
   const handleSave = () => {
@@ -281,7 +281,7 @@ const EditProduct = () => {
                 </span>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  {categories.map((category) => (
+                  {categories.map(category => (
                     <div
                       key={category.id}
                       className="bg-neutral-20 flex items-center gap-3 rounded-xl px-3 py-2"
