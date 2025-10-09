@@ -158,7 +158,7 @@ const EditProduct = () => {
   };
 
   const handleRemoveCategory = (categoryId: string) => {
-    setCategories(prev => prev.filter((c) => String(c.id) !== categoryId));
+    setCategories(prev => prev.filter(c => String(c.id) !== categoryId));
   };
 
   const handleSave = () => {
