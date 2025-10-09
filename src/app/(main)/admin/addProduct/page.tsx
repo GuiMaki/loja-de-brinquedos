@@ -31,7 +31,7 @@ const AddProduct = () => {
   const { handleSubmit, control, setValue } = useForm<ProductForm>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
-      category: [],
+      categories: [],
       name: '',
       price: 0,
       brand: '',
@@ -41,7 +41,7 @@ const AddProduct = () => {
   });
 
   useEffect(() => {
-    setValue('category', categories);
+    setValue('categories', categories);
   }, [categories, setValue]);
 
   const onSubmit = (data: ProductForm) => {

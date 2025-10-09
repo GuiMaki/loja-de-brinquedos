@@ -61,8 +61,6 @@ const EditProduct = () => {
   }, [data, reset]);
 
   const onSubmit = async (data: ProductForm) => {
-    console.log('Dados do produto:', data);
-    console.log('Imasync agens:', images);
     if (images.length === 0) {
       return openModal({
         type: 'alert',
@@ -74,9 +72,7 @@ const EditProduct = () => {
       });
     }
 
-    const categoriesIds = data.categories.map(c => c.id).join(', ');
-
-    console.log('categorias:', categoriesIds, data.categories);
+    const categoriesIds = categories.map(c => Number(c.id));
 
     await editProduct({
       id,

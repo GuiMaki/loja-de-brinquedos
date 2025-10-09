@@ -92,7 +92,7 @@ export type ProductForm = {
   marca: string;
   descricao: string;
   detalhes: string;
-  categoriaIds: string;
+  categoriaIds: number[];
 };
 
 export const useEditProduct = () => {
@@ -115,14 +115,9 @@ export const useEditProduct = () => {
     formData.append('marca', marca);
     formData.append('descricao', descricao);
     formData.append('detalhes', detalhes);
-
-    if (Array.isArray(categoriaIds)) {
-      formData.append('categoriaIds', categoriaIds.join(', '));
-    } else {
-      formData.append('categoriaIds', String(categoriaIds));
-    }
-
-    console.log([...formData.entries()]);
+    categoriaIds.forEach(id => {
+      formData.append('categoriaIds', String(id));
+    });
 
     await http.put(`brinquedos/${id}`, formData);
   };
@@ -131,6 +126,7 @@ export const useEditProduct = () => {
     mutationFn: editProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products_data'] });
+      queryClient.invalidateQueries({ queryKey: ['product_details'] });
     },
   });
 };
