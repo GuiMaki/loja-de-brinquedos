@@ -45,14 +45,19 @@ const EditProduct = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      const imagens =
-        data.brinquedo.imagens?.map(img => ({
-          file: null as unknown as File,
-          preview: typeof img === 'string' ? img : img.caminho,
-        })) || [];
+  if (data) {
+    const loadImages = async () => {
+      const files = await Promise.all(
+        (data.brinquedo.imagens || []).map(async (img: string | { caminho: string }, index: number) => {
+          const url = typeof img === 'string' ? img : img.caminho;
+          const response = await fetch(url);
+          const blob = await response.blob();
+          const file = new File([blob], `image-${index}.jpg`, { type: blob.type });
+          return { file, preview: url };
+        })
+      );
 
-      setImages(imagens);
+      setImages(files);
 
       const categorias = data.brinquedo.categorias || [];
       setCategories(categorias);
@@ -65,52 +70,57 @@ const EditProduct = () => {
         description: data.brinquedo.descricao,
         details: data.brinquedo.detalhes,
       });
-    }
-  }, [data, reset]);
+    };
+
+    loadImages();
+  }
+}, [data, reset]);
+
 
   const onSubmit = async (data: ProductForm) => {
-    if (images.length === 0) {
-      return openModal({
-        type: 'alert',
-        title: 'Nenhuma imagem anexada',
-        message:
-          'Faça o upload de pelo menos uma imagem do brinquedo para continuar!',
-        confirmText: 'Fechar',
-        onConfirm: closeModal,
-      });
-    }
-
-    const categoriesIds = categories.map(c => Number(c.id));
-    setLoading(true);
-
-    await editProduct({
-      id,
-      nome: data.name,
-      valor: String(data.price),
-      marca: data.brand,
-      descricao: data.description,
-      detalhes: data.details,
-      categoriaIds: categoriesIds,
+  if (images.length === 0) {
+    return openModal({
+      type: 'alert',
+      title: 'Nenhuma imagem anexada',
+      message:
+        'Faça o upload de pelo menos uma imagem do brinquedo para continuar!',
+      confirmText: 'Fechar',
+      onConfirm: closeModal,
     });
+  }
 
-    await deleteProductsImage(id);
+  const categoriesIds = categories.map(c => Number(c.id));
+  setLoading(true);
 
-    const newFiles = images.map(img => img.file).filter(Boolean) as File[];
+  await editProduct({
+    id,
+    nome: data.name,
+    valor: String(data.price),
+    marca: data.brand,
+    descricao: data.description,
+    detalhes: data.details,
+    categoriaIds: categoriesIds,
+  });
 
-    if (newFiles.length > 0) {
-      await createProductImage({ id, arquivos: newFiles });
-    }
+  await deleteProductsImage(id);
 
-    setLoading(false);
+  const allFiles = images.map(img => img.file).filter(Boolean) as File[];
 
-    openModal({
-      type: 'success',
-      title: 'Sucesso!',
-      message: 'Produto editado com sucesso!',
-      confirmText: 'Voltar',
-      onConfirm: () => router.back(),
-    });
-  };
+  if (allFiles.length > 0) {
+    await createProductImage({ id, arquivos: allFiles });
+  }
+
+  setLoading(false);
+
+  openModal({
+    type: 'success',
+    title: 'Sucesso!',
+    message: 'Produto editado com sucesso!',
+    confirmText: 'Voltar',
+    onConfirm: () => router.back(),
+  });
+};
+
 
   const handleCancel = () => {
     openModal({
